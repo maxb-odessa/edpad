@@ -9,7 +9,7 @@ AC_CONFIG_FILES([Makefile src/Makefile])
 AM_INIT_AUTOMAKE
 
 # Checks for programs.
-CFLAGS=" -std=c11 -ggdb -Wall -Werror"
+CFLAGS=" -std=gnu11 -ggdb -Wall -Werror"
 AC_PROG_CC
 
 # Checks for libraries.
@@ -25,5 +25,11 @@ AC_CHECK_HEADER_STDBOOL
 AC_CHECK_FUNCS([memset])
 
 PKG_CHECK_MODULES([GTK3], [gtk+-3.0])
+
+# TODO check xdo here
+XDO_CFLAGS=
+XDO_LIBS=-lxdo
+AC_SUBST([XDO_CFLAGS], [])
+AC_SUBST([XDO_LIBS],[$XDO_LIBS])
 
 AC_OUTPUT

@@ -1,23 +1,20 @@
 #include <gtk/gtk.h>
+#include <xdo.h>
 
-    static void
-print_hello (GtkWidget *widget,
-        gpointer   data)
-{
-    g_print ("Hello World\n");
+static void print_hello (GtkWidget * widget, gpointer data) {
+    xdo_t * x = xdo_new("192.168.100.100:0.0");
+    xdo_send_keysequence_window(x, CURRENTWINDOW, "m", 1);
+    xdo_free(x);
 }
 
-    static void
-activate (GtkApplication *app,
-        gpointer        user_data)
-{
+static void activate (GtkApplication * app, gpointer user_data) {
     GtkWidget *window;
     GtkWidget *button;
     GtkWidget *button_box;
 
     window = gtk_application_window_new (app);
     gtk_window_set_title (GTK_WINDOW (window), "Window");
-    gtk_window_set_decorated((GtkWindow*)window, 0);
+    gtk_window_set_decorated ((GtkWindow *) window, 0);
     gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
 
     button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
@@ -31,10 +28,7 @@ activate (GtkApplication *app,
     gtk_widget_show_all (window);
 }
 
-    int
-main (int    argc,
-        char **argv)
-{
+int main (int argc, char **argv) {
     GtkApplication *app;
     int status;
 
@@ -45,4 +39,3 @@ main (int    argc,
 
     return status;
 }
-
