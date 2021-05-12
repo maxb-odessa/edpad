@@ -1,7 +1,7 @@
 
-bin_PROGRAMS		=	ckeyboard
+bin_PROGRAMS	=	edpad
 
-ckeyboard_SOURCES	=	main.c
+edpad_SOURCES	=	main.c
 
-ckeyboard_CFLAGS	=	$(GTK3_CFLAGS)
-ckeyboard_LDADD		=	$(GTK3_LIBS)
+edpad_CFLAGS	=	$(GTK3_CFLAGS) $(XDO_CFLAGS)
+edpad_LDADD		=	$(GTK3_LIBS) $(XDO_LIBS)

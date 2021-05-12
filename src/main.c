@@ -28,9 +28,7 @@ static void activate(GtkApplication * app, gpointer user_data) {
 
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Window");
-    //    gtk_window_set_decorated ((GtkWindow *) window, 0);
-    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
-    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+    gtk_window_fullscreen(GTK_WINDOW(window));
     g_signal_connect(window, "destroy", G_CALLBACK(destroy), NULL);
 
     button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
