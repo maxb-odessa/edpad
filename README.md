@@ -1,1 +1,1 @@
-# edpad - Elite Dangerous (key)Pad
+# edpad - Elite Dangerous (key|touch)Pad
