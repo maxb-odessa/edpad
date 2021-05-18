@@ -1,55 +1,21 @@
 
-
 #include "edpad.h"
+#include "xkeys.h"
 
+#include <errno.h>
 
-gboolean mode_analyzer_map_cb(GtkWidget *widget, GdkEvent  *event, gpointer   user_data) {
-    gtk_widget_show(widget);
-    g_message("%s", gtk_widget_get_name(widget));
-    g_message("switch1!");
-    return FALSE;
-}
-
-gboolean mode_reserved_map_cb(GtkWidget *widget, GdkEvent  *event, gpointer   user_data) {
-    gtk_widget_show(widget);
-    g_message("%s", gtk_widget_get_name(widget));
-    g_message("switch2!");
-    return FALSE;
-}
-
-gboolean mode_rover_map_cb(GtkWidget *widget, GdkEvent  *event, gpointer   user_data) {
-    gtk_widget_show(widget);
-    g_message("%s", gtk_widget_get_name(widget));
-    g_message("switch3!");
-    return FALSE;
-}
-
-gboolean mode_combat_map_cb(GtkWidget *widget, GdkEvent  *event, gpointer   user_data) {
-    gtk_widget_show(widget);
-    g_message("%s", gtk_widget_get_name(widget));
-    g_message("switch4!");
-    return FALSE;
-}
-
-gboolean mode_landing_map_cb(GtkWidget *widget, GdkEvent  *event, gpointer   user_data) {
-    gtk_widget_show(widget);
-    g_message("%s", gtk_widget_get_name(widget));
-    g_message("switch5!");
-    return FALSE;
-}
-
-gboolean quit_button_clicked_cb(GtkWidget *widget, GdkEvent  *event, gpointer   user_data) {
-    gtk_widget_show(widget);
-    g_message("button");
-    return TRUE;
-}
-
+// main func
 int main(int argc, char *argv[]) {
     GtkBuilder *builder;
     GObject *window;
     GError *error = NULL;
 
     gtk_init(&argc, &argv);
+
+    if (xkeys_init(argc, argv) != 0) {
+        return 1;
+    }
+
 
     /* Construct a GtkBuilder instance and load our UI description */
     builder = gtk_builder_new();
@@ -60,7 +26,7 @@ int main(int argc, char *argv[]) {
     }
 
     /* Connect signal handlers to the constructed widgets. */
-    gtk_builder_connect_signals(builder, NULL);
+    gtk_builder_connect_signals(builder, (void *)builder);
     window = gtk_builder_get_object(builder, "window");
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     //GtkWindow *w = GTK_WINDOW(window);
