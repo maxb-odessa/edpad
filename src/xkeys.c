@@ -22,7 +22,7 @@ int xkeys_init(int argc, char **argv) {
 
     xdo = xdo_new(xserver);
     if (! xdo) {
-        fprintf(stderr, "Failed to connect to remote display\n");
+        fprintf(stderr, "Failed to connect to remote display\nForgot to run 'xhost +'?\n");
         return -1;
     }
 
