@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <object class="GtkWindow" id="window">
+  <template class="window" parent="GtkWindow">
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="has-focus">True</property>
@@ -15,7 +15,7 @@
     <property name="default-height">800</property>
     <property name="destroy-with-parent">True</property>
     <child>
-      <object class="GtkBox" id="1">
+      <object class="GtkBox" id="winbox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
@@ -40,7 +40,7 @@
             <property name="transition-type">slide-down</property>
             <child>
               <!-- n-columns=4 n-rows=4 -->
-              <object class="GtkGrid">
+              <object class="GtkGrid" id="analysis">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
@@ -99,7 +99,7 @@
             </child>
             <child>
               <!-- n-columns=3 n-rows=3 -->
-              <object class="GtkGrid">
+              <object class="GtkGrid" id="combat">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
@@ -138,7 +138,7 @@
             </child>
             <child>
               <!-- n-columns=3 n-rows=3 -->
-              <object class="GtkGrid">
+              <object class="GtkGrid" id="exploration">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
@@ -177,7 +177,7 @@
             </child>
             <child>
               <!-- n-columns=3 n-rows=5 -->
-              <object class="GtkGrid" id="tab_thrusters">
+              <object class="GtkGrid" id="thrusters">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
@@ -512,7 +512,7 @@
             </child>
             <child>
               <!-- n-columns=3 n-rows=3 -->
-              <object class="GtkGrid">
+              <object class="GtkGrid" id="rover">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
@@ -557,7 +557,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButtonBox">
+          <object class="GtkButtonBox" id="bottom">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="hexpand">True</property>
@@ -614,7 +614,7 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
   <object class="GtkApplicationWindow" id="quit_dialog">
     <property name="can-focus">True</property>
     <property name="can-default">True</property>
@@ -637,7 +637,7 @@
     <property name="attached-to">window</property>
     <property name="show-menubar">False</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="quitbox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="hexpand">True</property>
@@ -645,7 +645,7 @@
         <property name="orientation">vertical</property>
         <property name="homogeneous">True</property>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="quittext">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="hexpand">True</property>
@@ -660,7 +660,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButtonBox">
+          <object class="GtkButtonBox" id="quitbuttons">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
