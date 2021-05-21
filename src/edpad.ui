@@ -187,7 +187,7 @@
                 <property name="row-homogeneous">True</property>
                 <property name="column-homogeneous">True</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id8423">
                     <property name="name">t</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -199,7 +199,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id10502">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">50</property>
@@ -213,7 +213,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id13988">
                     <property name="name">s</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -223,7 +223,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id24137">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="hexpand">True</property>
@@ -239,7 +239,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id11572">
                     <property name="name">o</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -249,7 +249,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id16682">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">50</property>
@@ -263,7 +263,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id21974">
                     <property name="name">u</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -273,7 +273,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id20228">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">50</property>
@@ -287,7 +287,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id289">
                     <property name="name">d</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -297,7 +297,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id12427">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">30</property>
@@ -311,7 +311,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id15342">
                     <property name="name">a</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -321,7 +321,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id20652">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">30</property>
@@ -335,7 +335,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id15882">
                     <property name="name">y</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -345,7 +345,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id18843">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">30</property>
@@ -359,7 +359,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id21531">
                     <property name="name">r</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -369,7 +369,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id21536">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">30</property>
@@ -383,7 +383,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id16097">
                     <property name="name">i</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -391,7 +391,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id826">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">50</property>
@@ -405,7 +405,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id6617">
                     <property name="name">w</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -413,7 +413,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id28901">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">50</property>
@@ -427,7 +427,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id22978">
                     <property name="name">e</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -437,7 +437,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id11671">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">24</property>
@@ -451,7 +451,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="id15114">
                     <property name="name">q</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -461,7 +461,7 @@
                     <signal name="pressed" handler="on_button_down" swapped="no"/>
                     <signal name="released" handler="on_button_up" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id20790">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">24</property>
@@ -475,7 +475,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToggleButton">
+                  <object class="GtkToggleButton" id="id12517">
                     <property name="name">Page_Up</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -484,7 +484,7 @@
                     <property name="valign">center</property>
                     <signal name="toggled" handler="on_button_toggle" swapped="no"/>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="id13920">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixel-size">30</property>
@@ -669,7 +669,7 @@
             <property name="homogeneous">True</property>
             <property name="layout-style">spread</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="id15526">
                 <property name="label" translatable="yes">no</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -683,7 +683,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="id32338">
                 <property name="label" translatable="yes">yes</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
