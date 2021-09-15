@@ -28,7 +28,7 @@ PKG_CHECK_MODULES([GTK3], [gtk+-3.0])
 PKG_CHECK_MODULES([GME2], [gmodule-export-2.0])
 
 
-AC_CHECK_HEADERS([xdo.h])
-AC_CHECK_LIB([xdo], [xdo_new])
+#AC_CHECK_HEADERS([xdo.h])
+#AC_CHECK_LIB([xdo], [xdo_new])
 
 AC_OUTPUT
