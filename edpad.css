@@ -1,0 +1,29 @@
+#window {
+    background-color: #000000;
+}
+
+#view1 {
+    font-size: 20px;
+}
+#view1 text {
+    color: #AAAA50;
+    background-color: #303030;
+}
+
+#view2 {
+    font-size: 22px;
+}
+#view2 text {
+    color: #50FF50;
+    background-color: #404040;
+}
+
+#view3 {
+    font-size: 20px;
+}
+#view3 text {
+    color: #4040FF;
+    background-color: #303030;
+}
+
+

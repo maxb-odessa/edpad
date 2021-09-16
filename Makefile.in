@@ -1,0 +1,13 @@
+
+PREFIX	=	@HOME@/.local
+
+GO111MODULE	=	auto
+GOBIN		=	${PREFIX}/bin
+
+all:
+	go build -o edpad
+
+install: all
+	go env -w GOBIN=${GOBIN}
+	go install
+
