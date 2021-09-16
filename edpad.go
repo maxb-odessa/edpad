@@ -10,17 +10,35 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 )
 
+var resPath = os.Getenv("HOME") + "/.local/share/edpad/"
+
 func main() {
-	// Initialize GTK without parsing any command line arguments.
+
+	if len(os.Args) != 2 {
+		fmt.Printf("path required\n")
+		return
+	}
+
+	fp, err := os.OpenFile(os.Args[1], os.O_RDONLY, 0666)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
+	}
+
 	gtk.Init(nil)
 
-	builder, _ := gtk.BuilderNewFromFile("./edpad.glade")
+	builder, err := gtk.BuilderNewFromFile(resPath + "./edpad.glade")
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
+	}
 
 	obj, err := builder.GetObject("window")
 	if err != nil {
-		// object not found
+		fmt.Printf("%s\n", err)
 		return
 	}
+
 	win := obj.(*gtk.Window)
 
 	win.Connect("destroy", func() {
@@ -28,16 +46,21 @@ func main() {
 	})
 
 	css, _ := gtk.CssProviderNew()
-	e := css.LoadFromPath("./edpad.css")
-	fmt.Printf("css err: %v\n", e)
+
+	css.LoadFromPath(resPath + "./edpad.css")
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
+	}
 
 	ctx, _ := win.GetStyleContext()
 	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-	go txt(builder, css)
+	go reader(fp, builder, css)
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
+	win.Maximize()
 
 	// Begin executing the GTK main loop.  This blocks until
 	// gtk.MainQuit() is run.
@@ -45,13 +68,12 @@ func main() {
 }
 
 type ViewPort struct {
-	view  *gtk.TextView
-	buff  *gtk.TextBuffer
-	iterS *gtk.TextIter
-	iterE *gtk.TextIter
+	view *gtk.TextView
+	buff *gtk.TextBuffer
+	mark *gtk.TextMark
 }
 
-func txt(builder *gtk.Builder, css *gtk.CssProvider) {
+func reader(fp *os.File, builder *gtk.Builder, css *gtk.CssProvider) {
 
 	viewPorts := map[string]*ViewPort{
 		"view1": nil,
@@ -76,13 +98,13 @@ func txt(builder *gtk.Builder, css *gtk.CssProvider) {
 		buff, _ := view.GetBuffer()
 		viewPorts[idx].buff = buff
 
-		viewPorts[idx].iterS = buff.GetStartIter()
-		viewPorts[idx].iterE = buff.GetEndIter()
+		iterS := buff.GetStartIter()
+		iterE := buff.GetEndIter()
 
-		viewPorts[idx].buff.Delete(viewPorts[idx].iterS, viewPorts[idx].iterE)
+		viewPorts[idx].buff.Delete(iterS, iterE)
+
+		viewPorts[idx].mark = buff.CreateMark(idx, iterE, false)
 	}
-
-	fp, _ := os.OpenFile("/tmp/edpad.pipe", os.O_RDWR, 0666)
 
 	scanner := bufio.NewScanner(fp)
 
@@ -100,11 +122,10 @@ func txt(builder *gtk.Builder, css *gtk.CssProvider) {
 		text = strings.ReplaceAll(text, `\t`, "\t")
 		text = strings.ReplaceAll(text, `\\`, "\\")
 
-		viewPorts[idx].buff.Insert(viewPorts[idx].iterE, text)
-		//		viewPorts[idx].iterS = viewPorts[idx].buff.GetStartIter()
-		//		viewPorts[idx].iterE = viewPorts[idx].buff.GetEndIter()
+		iterE := viewPorts[idx].buff.GetEndIter()
+		viewPorts[idx].buff.Insert(iterE, text)
 
-		viewPorts[idx].view.ScrollToIter(viewPorts[idx].iterE, 0.0, false, 0.0, 0.0)
+		viewPorts[idx].view.ScrollToMark(viewPorts[idx].mark, 0.0, false, 0.0, 0.0)
 	}
 
 }

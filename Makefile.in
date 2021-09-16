@@ -1,5 +1,6 @@
 
-PREFIX	=	@HOME@/.local
+PREFIX		=	@HOME@/.local
+SHAREDIR	=	@SHAREDIR@
 
 GO111MODULE	=	auto
 GOBIN		=	${PREFIX}/bin
@@ -10,4 +11,6 @@ all:
 install: all
 	go env -w GOBIN=${GOBIN}
 	go install
+	mkdir -p ${SHAREDIR}
+	cp -f edpad.css edpad.png edpad.glade ${SHAREDIR}
 

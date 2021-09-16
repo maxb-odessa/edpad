@@ -20,21 +20,22 @@
     <property name="window-position">center-always</property>
     <property name="default-width">800</property>
     <property name="default-height">600</property>
-    <property name="hide-titlebar-when-maximized">True</property>
     <property name="gravity">center</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="box">
         <property name="name">box</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
-          <object class="GtkScrolledWindow">
+          <object class="GtkScrolledWindow" id="scroll1">
+            <property name="name">scroll1</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="vscrollbar-policy">always</property>
-            <property name="shadow-type">in</property>
+            <property name="window-placement">bottom-left</property>
+            <property name="overlay-scrolling">False</property>
             <child>
               <object class="GtkTextView" id="view1">
                 <property name="name">view1</property>
@@ -61,12 +62,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow">
-            <property name="height-request">700</property>
+          <object class="GtkScrolledWindow" id="scroll2">
+            <property name="name">scroll2</property>
+            <property name="height-request">500</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="vscrollbar-policy">always</property>
-            <property name="shadow-type">in</property>
+            <property name="window-placement">bottom-left</property>
+            <property name="overlay-scrolling">False</property>
             <child>
               <object class="GtkTextView" id="view2">
                 <property name="name">view2</property>
@@ -93,12 +96,12 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow">
+          <object class="GtkScrolledWindow" id="scroll3">
+            <property name="name">scroll3</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="vscrollbar-policy">always</property>
             <property name="window-placement">bottom-left</property>
-            <property name="shadow-type">in</property>
             <property name="overlay-scrolling">False</property>
             <child>
               <object class="GtkTextView" id="view3">
@@ -126,6 +129,9 @@
           </packing>
         </child>
       </object>
+    </child>
+    <child type="titlebar">
+      <placeholder/>
     </child>
   </object>
 </interface>
