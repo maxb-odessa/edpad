@@ -12,5 +12,6 @@ install: all
 	go env -w GOBIN=${GOBIN}
 	go install
 	mkdir -p ${SHAREDIR}
-	cp -f edpad.css edpad.png edpad.glade ${SHAREDIR}
+	cp -f edpad.css edpad.glade ${SHAREDIR}
+	cp -f edpad-1280-800.png ${SHAREDIR}/edpad.png
 

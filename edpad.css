@@ -1,0 +1,45 @@
+#window {
+    background-image: url('/home/vesemir/.local/share/edpad/edpad.png');
+}
+
+#scroll1 {
+    background: alpha (@base_color, 0.0);
+}
+
+#scroll2 {
+    background: alpha (@base_color, 0.0);
+}
+
+#scroll3 {
+    background: alpha (@base_color, 0.0);
+}
+
+
+#view1 {
+    font-size: 24px;
+    background: alpha (@base_color, 0.0);
+}
+#view1 text {
+    color: #8080FF;
+    background: alpha (@base_color, 0.0);
+}
+
+#view2 {
+    font-size: 26px;
+    background: alpha (@base_color, 0.0);
+}
+#view2 text {
+    color: #50FF50;
+    background: alpha (@base_color, 0.0);
+}
+
+#view3 {
+    font-size: 24px;
+    background: alpha (@base_color, 0.0);
+}
+#view3 text {
+    color: #FFFF70;
+    background: alpha (@base_color, 0.0);
+}
+
+

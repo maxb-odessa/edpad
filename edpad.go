@@ -7,6 +7,7 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 )
 
@@ -19,7 +20,7 @@ func main() {
 		return
 	}
 
-	fp, err := os.OpenFile(os.Args[1], os.O_RDONLY, 0666)
+	fp, err := os.OpenFile(os.Args[1], os.O_RDWR, 0666)
 	if err != nil {
 		fmt.Printf("%s\n", err)
 		return
@@ -56,7 +57,7 @@ func main() {
 	ctx, _ := win.GetStyleContext()
 	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-	go reader(fp, builder, css)
+	reader(fp, builder, css)
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
@@ -68,9 +69,10 @@ func main() {
 }
 
 type ViewPort struct {
-	view *gtk.TextView
-	buff *gtk.TextBuffer
-	mark *gtk.TextMark
+	vpname string
+	view   *gtk.TextView
+	buff   *gtk.TextBuffer
+	mark   *gtk.TextMark
 }
 
 func reader(fp *os.File, builder *gtk.Builder, css *gtk.CssProvider) {
@@ -81,8 +83,26 @@ func reader(fp *os.File, builder *gtk.Builder, css *gtk.CssProvider) {
 		"view3": nil,
 	}
 
-	for idx, _ := range viewPorts {
-		obj, err := builder.GetObject(idx)
+	clearVp := func(vp *ViewPort) bool {
+		/*
+			iterS := vp.buff.GetStartIter()
+			iterE := vp.buff.GetEndIter()
+			vp.buff.Delete(iterS, iterE)
+			iterE = vp.buff.GetEndIter()
+			vp.buff.Insert(iterE, "")
+		*/
+		vp.buff.SetText("")
+		if vp.mark == nil {
+			iterE := vp.buff.GetEndIter()
+			vp.mark = vp.buff.CreateMark(vp.vpname, iterE, false)
+		}
+		vp.view.ScrollToMark(vp.mark, 0.0, false, 0.0, 0.0)
+
+		return false
+	}
+
+	for vpname, _ := range viewPorts {
+		obj, err := builder.GetObject(vpname)
 		if err != nil {
 			continue
 		}
@@ -91,42 +111,62 @@ func reader(fp *os.File, builder *gtk.Builder, css *gtk.CssProvider) {
 		ctx, _ := view.GetStyleContext()
 		ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-		viewPorts[idx] = new(ViewPort)
+		viewPorts[vpname] = new(ViewPort)
+		viewPorts[vpname].vpname = vpname
 
-		viewPorts[idx].view = view
+		viewPorts[vpname].view = view
 
 		buff, _ := view.GetBuffer()
-		viewPorts[idx].buff = buff
+		viewPorts[vpname].buff = buff
 
-		iterS := buff.GetStartIter()
-		iterE := buff.GetEndIter()
-
-		viewPorts[idx].buff.Delete(iterS, iterE)
-
-		viewPorts[idx].mark = buff.CreateMark(idx, iterE, false)
+		clearVp(viewPorts[vpname])
 	}
 
-	scanner := bufio.NewScanner(fp)
+	go func() {
 
-	for scanner.Scan() {
-		// parse line, get view name
-		tokens := fieldsN(scanner.Text(), 2)
-		if _, ok := viewPorts[tokens[0]]; !ok {
-			fmt.Printf("invalid view '%s'\n", tokens[0])
-			continue
+		scanner := bufio.NewScanner(fp)
+		for scanner.Scan() {
+			var ok bool
+			var vp *ViewPort
+
+			// parse line, get view name
+			tokens := fieldsN(scanner.Text(), 2)
+			if vp, ok = viewPorts[tokens[0]]; !ok {
+				fmt.Printf("invalid view '%s'\n", tokens[0])
+				continue
+			}
+			text := tokens[1]
+			text = strings.ReplaceAll(text, `\n`, "\n")
+			text = strings.ReplaceAll(text, `\r`, "\r")
+			text = strings.ReplaceAll(text, `\t`, "\t")
+			text = strings.ReplaceAll(text, `\\`, "\\")
+
+			strs := strings.Split(text, `\c`)
+
+			doClear := len(strs) > 1
+			for _, s := range strs {
+
+				if len(s) > 0 {
+					glib.IdleAdd(func() bool {
+						iterE := vp.buff.GetEndIter()
+						vp.buff.Insert(iterE, s)
+						vp.view.ScrollToMark(vp.mark, 0.0, false, 0.0, 0.0)
+						return false
+					})
+
+				}
+
+				if doClear {
+					glib.IdleAdd(func() bool {
+						clearVp(vp)
+						return false
+					})
+				}
+			}
+
 		}
-		idx := tokens[0]
-		text := tokens[1]
-		text = strings.ReplaceAll(text, `\n`, "\n")
-		text = strings.ReplaceAll(text, `\r`, "\r")
-		text = strings.ReplaceAll(text, `\t`, "\t")
-		text = strings.ReplaceAll(text, `\\`, "\\")
 
-		iterE := viewPorts[idx].buff.GetEndIter()
-		viewPorts[idx].buff.Insert(iterE, text)
-
-		viewPorts[idx].view.ScrollToMark(viewPorts[idx].mark, 0.0, false, 0.0, 0.0)
-	}
+	}()
 
 }
 
