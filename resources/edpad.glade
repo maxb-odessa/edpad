@@ -37,8 +37,8 @@
             <property name="max-content-width">2000</property>
             <property name="max-content-height">2000</property>
             <child>
-              <object class="GtkTextView" id="view1">
-                <property name="name">view1</property>
+              <object class="GtkTextView" id="vp0">
+                <property name="name">vp0</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">False</property>
@@ -78,8 +78,8 @@
             <property name="max-content-width">2000</property>
             <property name="max-content-height">2000</property>
             <child>
-              <object class="GtkTextView" id="view2">
-                <property name="name">view2</property>
+              <object class="GtkTextView" id="vp1">
+                <property name="name">vp1</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">False</property>
@@ -118,8 +118,8 @@
             <property name="max-content-width">2000</property>
             <property name="max-content-height">2000</property>
             <child>
-              <object class="GtkTextView" id="view3">
-                <property name="name">view3</property>
+              <object class="GtkTextView" id="vp2">
+                <property name="name">vp2</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">False</property>

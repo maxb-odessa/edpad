@@ -1,5 +1,4 @@
 Makefile
-Makefile.in
 aclocal.m4
 autom4te.cache/
 compile
@@ -16,6 +15,7 @@ config.h.in
 stamp-h1
 *~
 *.o
+*.swp
 
 !Makefile.in
-
+!edpad.css.in
