@@ -1,6 +1,5 @@
 
- - restructure the code: move away from POC stage
  - parse inut line (json!), extract and decide where to show the data, obey joy buttons to switch/scroll views
  - xdo support: draw limited keypad for q,w,e,s,esc,etc...
  - primitive config file
- 
+ - use pango markup for output text 

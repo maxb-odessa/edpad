@@ -4,6 +4,7 @@ import (
 	"edpad/conf"
 	"log"
 
+	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 )
 
@@ -14,11 +15,12 @@ type Cmd struct {
 }
 
 type viewPort struct {
-	name string
 	view *gtk.TextView
 	buff *gtk.TextBuffer
 	mark *gtk.TextMark
 }
+
+var viewPorts map[string]viewPort
 
 const CHANSIZE = 128
 
@@ -60,44 +62,31 @@ func Start(cfg *conf.Conf) {
 	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 	// prepare and configure view ports
-	viewPorts := map[string]*viewPort{
-		"top":    nil,
-		"center": nil,
-		"bottom": nil,
-	}
+	viewPorts = make(map[string]viewPort)
+	for _, name := range []string{"top", "center", "bottom"} {
 
-	for name, _ := range viewPorts {
+		var vp viewPort
 
 		obj, err := builder.GetObject(name)
 		if err != nil {
-			log.Printf("not preparing view port: %s\n", err)
-			continue
+			log.Fatalln(err)
 		}
 
-		view := obj.(*gtk.TextView)
+		vp.view = obj.(*gtk.TextView)
 
-		ctx, err := view.GetStyleContext()
+		ctx, err := vp.view.GetStyleContext()
 		if err != nil {
-			log.Println(err)
-			return
+			log.Fatalln(err)
 		}
 
 		ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-		viewPorts[name] = new(viewPort)
-		viewPorts[name].name = name
-
-		viewPorts[name].view = view
-
-		buff, err := view.GetBuffer()
+		vp.buff, err = vp.view.GetBuffer()
 		if err != nil {
-			log.Println(err)
-			return
+			log.Fatalln(err)
 		}
 
-		viewPorts[name].buff = buff
-
-		clearViewPort(viewPorts[name])
+		clearViewPort(&vp)
 	}
 
 	InChan = make(chan *Cmd, CHANSIZE)
@@ -129,35 +118,19 @@ func reader() {
 
 func process(cmd *Cmd) {
 
-	/*
-			if len(s) > 0 {
-				glib.IdleAdd(func() bool {
-					iterE := vp.buff.GetEndIter()
-					vp.buff.Insert(iterE, s)
-					vp.view.ScrollToMark(vp.mark, 0.0, false, 0.0, 0.0)
-					return false
-				})
-
-			}
-
-			if doClear {
-				glib.IdleAdd(func() bool {
-					clearVp(vp)
-					return false
-				})
-			}
+	glib.IdleAdd(func() bool {
+		vp, ok := viewPorts[cmd.ViewPortName]
+		if ok {
+			vp.buff.InsertMarkup(vp.buff.GetEndIter(), cmd.Data)
+			vp.view.ScrollToIter(vp.buff.GetEndIter(), 0.0, false, 0.0, 0.0)
 		}
-	*/
+		return false
+	})
+
 }
 
 func clearViewPort(vp *viewPort) bool {
 	vp.buff.SetText("")
-	if vp.mark == nil {
-		iterE := vp.buff.GetEndIter()
-		vp.mark = vp.buff.CreateMark(vp.name, iterE, false)
-	}
-
-	vp.view.ScrollToMark(vp.mark, 0.0, false, 0.0, 0.0)
-
+	//	vp.view.ScrollToIter(vp.buff.GetEndIter, 0.0, false, 0.0, 0.0)
 	return false
 }
