@@ -27,6 +27,7 @@
         <child>
           <object class="GtkScrolledWindow" id="scroll1">
             <property name="name">scroll1</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="hscrollbar-policy">never</property>
@@ -37,8 +38,8 @@
             <property name="max-content-width">2000</property>
             <property name="max-content-height">2000</property>
             <child>
-              <object class="GtkTextView" id="vp0">
-                <property name="name">vp0</property>
+              <object class="GtkTextView" id="top">
+                <property name="name">top</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">False</property>
@@ -78,8 +79,8 @@
             <property name="max-content-width">2000</property>
             <property name="max-content-height">2000</property>
             <child>
-              <object class="GtkTextView" id="vp1">
-                <property name="name">vp1</property>
+              <object class="GtkTextView" id="center">
+                <property name="name">center</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">False</property>
@@ -118,8 +119,8 @@
             <property name="max-content-width">2000</property>
             <property name="max-content-height">2000</property>
             <child>
-              <object class="GtkTextView" id="vp2">
-                <property name="name">vp2</property>
+              <object class="GtkTextView" id="bottom">
+                <property name="name">bottom</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">False</property>

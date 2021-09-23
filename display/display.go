@@ -61,16 +61,9 @@ func Start(cfg *conf.Conf) {
 
 	// prepare and configure view ports
 	viewPorts := map[string]*viewPort{
-		"vp0": nil,
-		"vp1": nil,
-		"vp2": nil,
-		"vp3": nil,
-		"vp4": nil,
-		"vp5": nil,
-		"vp6": nil,
-		"vp7": nil,
-		"vp8": nil,
-		"vp9": nil,
+		"top":    nil,
+		"center": nil,
+		"bottom": nil,
 	}
 
 	for name, _ := range viewPorts {
