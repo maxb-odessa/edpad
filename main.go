@@ -6,6 +6,7 @@ import (
 
 	"edpad/conf"
 	"edpad/display"
+	"edpad/file"
 )
 
 func main() {
@@ -20,6 +21,9 @@ func main() {
 		log.Println(err)
 		return
 	}
+
+	// start file reader
+	file.Read(cfg)
 
 	// start display and wait for it to finish
 	display.Start(cfg)

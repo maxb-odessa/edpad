@@ -3,16 +3,30 @@ package display
 import (
 	"edpad/conf"
 	"log"
+	"runtime"
 
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 )
 
 type Cmd struct {
-	ViewPortName string
-	Command      string
-	Data         string
+	ViewPort string
+	Command  int
+	Data     string
 }
+
+const (
+	VIEWPORT_TOP    = "top"
+	VIEWPORT_CENTER = "center"
+	VIEWPORT_BOTTOM = "bottom"
+)
+
+const (
+	CMD_CLEAR = iota
+	CMD_TEXT
+	CMD_SCROLL_UP
+	CMD_SCROLL_DOWN
+)
 
 type viewPort struct {
 	view *gtk.TextView
@@ -24,9 +38,11 @@ var viewPorts map[string]viewPort
 
 const CHANSIZE = 128
 
-var InChan chan *Cmd
+var CmdChan chan *Cmd
 
 func Start(cfg *conf.Conf) {
+
+	runtime.LockOSThread()
 
 	resPath, _ := cfg.Get("gtk_resources_dir")
 
@@ -45,13 +61,11 @@ func Start(cfg *conf.Conf) {
 	}
 
 	win := obj.(*gtk.Window)
-
 	win.Connect("destroy", func() {
 		gtk.MainQuit()
 	})
 
 	css, _ := gtk.CssProviderNew()
-
 	css.LoadFromPath(resPath + "./edpad.css")
 	if err != nil {
 		log.Println(err)
@@ -63,7 +77,7 @@ func Start(cfg *conf.Conf) {
 
 	// prepare and configure view ports
 	viewPorts = make(map[string]viewPort)
-	for _, name := range []string{"top", "center", "bottom"} {
+	for _, name := range []string{VIEWPORT_TOP, VIEWPORT_CENTER, VIEWPORT_BOTTOM} {
 
 		var vp viewPort
 
@@ -86,13 +100,13 @@ func Start(cfg *conf.Conf) {
 			log.Fatalln(err)
 		}
 
-		clearViewPort(&vp)
+		viewPortClear(&vp)
 	}
 
-	InChan = make(chan *Cmd, CHANSIZE)
+	CmdChan = make(chan *Cmd, CHANSIZE)
 
 	// start channels reader
-	go reader()
+	go cmdReader()
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
@@ -103,33 +117,44 @@ func Start(cfg *conf.Conf) {
 	gtk.Main()
 }
 
-func reader() {
+func cmdReader() {
 
 	for {
 		select {
-		case cmd, ok := <-InChan:
+		case cmd, ok := <-CmdChan:
 			if !ok {
-				log.Panic("broken chan")
+				log.Fatalln("broken cmd chan")
 			}
-			process(cmd)
+			glib.IdleAdd(func() bool { return processCmd(cmd) })
 		}
 	}
 }
 
-func process(cmd *Cmd) {
+func processCmd(cmd *Cmd) bool {
 
-	glib.IdleAdd(func() bool {
-		vp, ok := viewPorts[cmd.ViewPortName]
-		if ok {
-			vp.buff.InsertMarkup(vp.buff.GetEndIter(), cmd.Data)
-			vp.view.ScrollToIter(vp.buff.GetEndIter(), 0.0, false, 0.0, 0.0)
-		}
+	vp, ok := viewPorts[cmd.ViewPort]
+	if !ok {
+		log.Printf("unknown view port: %s\n", cmd.ViewPort)
 		return false
-	})
+	}
 
+	switch cmd.Command {
+	case CMD_CLEAR:
+		viewPortClear(&vp)
+	case CMD_TEXT:
+		viewPortText(&vp, cmd.Data)
+	}
+
+	return false
 }
 
-func clearViewPort(vp *viewPort) bool {
+func viewPortText(vp *viewPort, text string) bool {
+	vp.buff.InsertMarkup(vp.buff.GetEndIter(), text)
+	vp.view.ScrollToIter(vp.buff.GetEndIter(), 0.0, false, 0.0, 0.0)
+	return false
+}
+
+func viewPortClear(vp *viewPort) bool {
 	vp.buff.SetText("")
 	//	vp.view.ScrollToIter(vp.buff.GetEndIter, 0.0, false, 0.0, 0.0)
 	return false

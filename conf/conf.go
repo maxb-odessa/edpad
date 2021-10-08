@@ -19,6 +19,8 @@ func Read(path string) (*Conf, error) {
 
 	// TODO read config here
 
+	cfg.vars["gtk_resources_dir"] = "./resources/" // TODO temp value!
+
 	return cfg, nil
 }
 
