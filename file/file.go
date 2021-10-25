@@ -8,29 +8,46 @@ import (
 	"time"
 
 	"edpad/cfg"
-	"edpad/display"
-	"edpad/parser"
 )
 
-func Start() error {
+func Start(parserCh chan string) error {
 
-	fname := cfg.FilePipe
+	var fp *os.File
+	var err error
 
+	// file is not configured - not reading it
+	if cfg.FilePipe == "" {
+		return nil
+	}
+
+	// wait for the file to appear and start reading it
 	for {
-		if fp, err := os.OpenFile(fname, os.O_RDWR, 0666); err != nil {
+		if fp, err = os.OpenFile(cfg.FilePipe, os.O_RDWR, 0666); err != nil {
 			log.Printf("waiting for the file: %s\n", err)
 			time.Sleep(time.Second * 1)
 		} else {
-			scanner := bufio.NewScanner(fp)
-			go reader(scanner)
-			return nil
+			break
 		}
 	}
+
+	// spawn file reader
+	go func() {
+		scanner := bufio.NewScanner(fp)
+		for scanner.Scan() {
+			text := strings.TrimSpace(scanner.Text())
+			if text != "" {
+				parserCh <- text
+			}
+		}
+	}()
+
 	return nil
 }
 
+/*
 func reader(scanner *bufio.Scanner) {
-	for scanner.Scan() {
+
+
 		var cmd display.Cmd
 
 		text := scanner.Text()
@@ -65,3 +82,4 @@ func reader(scanner *bufio.Scanner) {
 		}
 	}
 }
+*/

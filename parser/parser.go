@@ -2,12 +2,24 @@ package parser
 
 import (
 	"edpad/display"
-	"edpad/event"
-	"log"
 )
 
-func Parse(in string, cmf *display.Cmd) (string, error) {
-	ev := event.Scan{}
-	log.Println("parsing")
-	return ev.ScanType, nil
+func Start(parserCh chan string, displayCh chan *display.Cmd) error {
+
+	for {
+		select {
+		case text := <-parserCh:
+			if cmd := parse(text); cmd != nil {
+				displayCh <- cmd
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func parse(text string) *display.Cmd {
+
+	return nil
 }

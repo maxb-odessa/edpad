@@ -38,9 +38,7 @@ var viewPorts map[string]viewPort
 
 const CHANSIZE = 128
 
-var CmdChan chan *Cmd
-
-func Start() error {
+func Start(cmdCh chan *Cmd) error {
 
 	runtime.LockOSThread()
 
@@ -100,10 +98,8 @@ func Start() error {
 		viewPortClear(&vp)
 	}
 
-	CmdChan = make(chan *Cmd, CHANSIZE)
-
 	// start channels reader
-	go cmdReader()
+	go cmdReader(cmdCh)
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
@@ -115,11 +111,11 @@ func Start() error {
 	return nil
 }
 
-func cmdReader() {
+func cmdReader(cmdCh chan *Cmd) {
 
 	for {
 		select {
-		case cmd, ok := <-CmdChan:
+		case cmd, ok := <-cmdCh:
 			if !ok {
 				log.Fatalln("broken cmd chan")
 			}
