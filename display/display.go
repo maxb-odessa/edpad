@@ -1,7 +1,7 @@
 package display
 
 import (
-	"edpad/conf"
+	"edpad/cfg"
 	"log"
 	"runtime"
 
@@ -40,24 +40,22 @@ const CHANSIZE = 128
 
 var CmdChan chan *Cmd
 
-func Start(cfg *conf.Conf) {
+func Start() error {
 
 	runtime.LockOSThread()
 
-	resPath, _ := cfg.Get("gtk_resources_dir")
+	resPath := cfg.GtkResourcesDir
 
 	gtk.Init(nil)
 
 	builder, err := gtk.BuilderNewFromFile(resPath + "./edpad.glade")
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 
 	obj, err := builder.GetObject("window")
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 
 	win := obj.(*gtk.Window)
@@ -68,8 +66,7 @@ func Start(cfg *conf.Conf) {
 	css, _ := gtk.CssProviderNew()
 	css.LoadFromPath(resPath + "./edpad.css")
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 
 	ctx, _ := win.GetStyleContext()
@@ -83,21 +80,21 @@ func Start(cfg *conf.Conf) {
 
 		obj, err := builder.GetObject(name)
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 
 		vp.view = obj.(*gtk.TextView)
 
 		ctx, err := vp.view.GetStyleContext()
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 
 		ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 		vp.buff, err = vp.view.GetBuffer()
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 
 		viewPortClear(&vp)
@@ -115,6 +112,7 @@ func Start(cfg *conf.Conf) {
 	// Begin executing the GTK main loop.  This blocks until
 	// gtk.MainQuit() is run.
 	gtk.Main()
+	return nil
 }
 
 func cmdReader() {

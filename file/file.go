@@ -7,14 +7,14 @@ import (
 	"strings"
 	"time"
 
-	"edpad/conf"
+	"edpad/cfg"
 	"edpad/display"
 	"edpad/parser"
 )
 
-func Read(cfg *conf.Conf) {
+func Start() error {
 
-	fname, _ := cfg.Get("pipe_path")
+	fname := cfg.FilePipe
 
 	for {
 		if fp, err := os.OpenFile(fname, os.O_RDWR, 0666); err != nil {
@@ -23,9 +23,10 @@ func Read(cfg *conf.Conf) {
 		} else {
 			scanner := bufio.NewScanner(fp)
 			go reader(scanner)
-			return
+			return nil
 		}
 	}
+	return nil
 }
 
 func reader(scanner *bufio.Scanner) {
