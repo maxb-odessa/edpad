@@ -2,24 +2,37 @@ package parser
 
 import (
 	"edpad/display"
+	"edpad/log"
 )
 
 func Start(parserCh chan string, displayCh chan *display.Cmd) error {
 
-	for {
-		select {
-		case text := <-parserCh:
-			if cmd := parse(text); cmd != nil {
-				displayCh <- cmd
+	go func() {
+
+		for {
+			select {
+			case text, ok := <-parserCh:
+				if !ok {
+					return
+				}
+				if cmd := parse(text); cmd != nil {
+					displayCh <- cmd
+				}
 			}
+
 		}
 
-	}
+	}()
 
 	return nil
 }
 
 func parse(text string) *display.Cmd {
 
-	return nil
+	log.Debug("parser: %s\n", text)
+
+	return &display.Cmd{
+		Data:    text,
+		Command: display.CMD_TEXT,
+	}
 }

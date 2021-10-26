@@ -1,25 +1,19 @@
 package display
 
 import (
-	"edpad/cfg"
-	"log"
 	"runtime"
 
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
+
+	"edpad/cfg"
+	"edpad/log"
 )
 
 type Cmd struct {
-	ViewPort string
-	Command  int
-	Data     string
+	Command int
+	Data    string
 }
-
-const (
-	VIEWPORT_TOP    = "top"
-	VIEWPORT_CENTER = "center"
-	VIEWPORT_BOTTOM = "bottom"
-)
 
 const (
 	CMD_CLEAR = iota
@@ -34,19 +28,13 @@ type viewPort struct {
 	mark *gtk.TextMark
 }
 
-var viewPorts map[string]viewPort
-
-const CHANSIZE = 128
-
 func Start(cmdCh chan *Cmd) error {
 
 	runtime.LockOSThread()
 
-	resPath := cfg.GtkResourcesDir
-
 	gtk.Init(nil)
 
-	builder, err := gtk.BuilderNewFromFile(resPath + "./edpad.glade")
+	builder, err := gtk.BuilderNewFromFile(cfg.GtkResourcesDir + "/edpad.glade")
 	if err != nil {
 		return err
 	}
@@ -56,13 +44,13 @@ func Start(cmdCh chan *Cmd) error {
 		return err
 	}
 
-	win := obj.(*gtk.Window)
+	win := obj.(*gtk.ApplicationWindow)
 	win.Connect("destroy", func() {
 		gtk.MainQuit()
 	})
 
 	css, _ := gtk.CssProviderNew()
-	css.LoadFromPath(resPath + "./edpad.css")
+	css.LoadFromPath(cfg.GtkResourcesDir + "/edpad.css")
 	if err != nil {
 		return err
 	}
@@ -71,35 +59,31 @@ func Start(cmdCh chan *Cmd) error {
 	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 	// prepare and configure view ports
-	viewPorts = make(map[string]viewPort)
-	for _, name := range []string{VIEWPORT_TOP, VIEWPORT_CENTER, VIEWPORT_BOTTOM} {
+	var vp viewPort
 
-		var vp viewPort
-
-		obj, err := builder.GetObject(name)
-		if err != nil {
-			return err
-		}
-
-		vp.view = obj.(*gtk.TextView)
-
-		ctx, err := vp.view.GetStyleContext()
-		if err != nil {
-			return err
-		}
-
-		ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-		vp.buff, err = vp.view.GetBuffer()
-		if err != nil {
-			return err
-		}
-
-		viewPortClear(&vp)
+	obj, err = builder.GetObject("textview")
+	if err != nil {
+		return err
 	}
 
+	vp.view = obj.(*gtk.TextView)
+
+	ctx, err = vp.view.GetStyleContext()
+	if err != nil {
+		return err
+	}
+
+	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+	vp.buff, err = vp.view.GetBuffer()
+	if err != nil {
+		return err
+	}
+
+	viewPortClear(&vp)
+
 	// start channels reader
-	go cmdReader(cmdCh)
+	go cmdReader(&vp, cmdCh)
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
@@ -111,32 +95,26 @@ func Start(cmdCh chan *Cmd) error {
 	return nil
 }
 
-func cmdReader(cmdCh chan *Cmd) {
+func cmdReader(vp *viewPort, cmdCh chan *Cmd) {
 
 	for {
 		select {
 		case cmd, ok := <-cmdCh:
 			if !ok {
-				log.Fatalln("broken cmd chan")
+				log.Fatal("broken cmd chan")
 			}
-			glib.IdleAdd(func() bool { return processCmd(cmd) })
+			glib.IdleAdd(func() bool { return processCmd(vp, cmd) })
 		}
 	}
 }
 
-func processCmd(cmd *Cmd) bool {
-
-	vp, ok := viewPorts[cmd.ViewPort]
-	if !ok {
-		log.Printf("unknown view port: %s\n", cmd.ViewPort)
-		return false
-	}
+func processCmd(vp *viewPort, cmd *Cmd) bool {
 
 	switch cmd.Command {
 	case CMD_CLEAR:
-		viewPortClear(&vp)
+		viewPortClear(vp)
 	case CMD_TEXT:
-		viewPortText(&vp, cmd.Data)
+		viewPortText(vp, cmd.Data)
 	}
 
 	return false
