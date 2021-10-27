@@ -1,5 +1,7 @@
 #window {
     background-image: url('/home/vesemir/.local/share/edpad/edpad.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #scroll {

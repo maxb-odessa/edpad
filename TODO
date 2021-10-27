@@ -1,5 +1,4 @@
 
- - listen for input via tcp and pipe file (support both)
  - parse inut line (json!), extract and decide where to show the data, obey joy buttons to switch/scroll views
  - xdo support: draw limited keypad for q,w,e,s,esc,etc...
  - use pango markup for output text 

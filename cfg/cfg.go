@@ -29,7 +29,7 @@ func Conf() error {
 
 	if help {
 		o.Usage()
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	return nil
