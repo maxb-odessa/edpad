@@ -115,6 +115,8 @@ func processCmd(vp *viewPort, cmd *Cmd) bool {
 		viewPortClear(vp)
 	case CMD_TEXT:
 		viewPortText(vp, cmd.Data)
+	case CMD_SCROLL_UP:
+	case CMD_SCROLL_DOWN:
 	}
 
 	return false

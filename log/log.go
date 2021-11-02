@@ -3,14 +3,19 @@ package log
 import (
 	"fmt"
 	"os"
+	"sync"
 	"time"
 
 	"edpad/cfg"
 )
 
+var lck sync.Mutex
+
 // log error message
 func genlog(level string, format string, args ...interface{}) {
+	lck.Lock()
 	fmt.Fprintf(os.Stderr, time.Now().Format("15:04:05 01-02-2006")+" edpad["+level+"] "+format, args...)
+	lck.Unlock()
 }
 
 // Err logs ERROR messages to stderr
