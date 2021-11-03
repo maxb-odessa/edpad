@@ -1,6 +1,7 @@
 package cfg
 
 import (
+	"edpad/log"
 	"os"
 
 	o "github.com/pborman/getopt/v2"
@@ -31,6 +32,12 @@ func Conf() error {
 		o.Usage()
 		os.Exit(0)
 	}
+
+	log.DoDebug = Debug
+
+	log.Debug("cfg: GtkResourcesDir = %s\n", GtkResourcesDir)
+	log.Debug("cfg: FilePipe = %s\n", FilePipe)
+	log.Debug("cfg: Listen = %s\n", Listen)
 
 	return nil
 }

@@ -5,11 +5,11 @@ import (
 	"os"
 	"sync"
 	"time"
-
-	"edpad/cfg"
 )
 
 var lck sync.Mutex
+
+var DoDebug bool
 
 // log error message
 func genlog(level string, format string, args ...interface{}) {
@@ -41,7 +41,7 @@ func Fatal(format string, args ...interface{}) {
 
 // Debug prints some debug if ELDA_DEBUD env var defined
 func Debug(format string, args ...interface{}) {
-	if cfg.Debug {
+	if DoDebug {
 		genlog("DEBUG", format, args...)
 	}
 }

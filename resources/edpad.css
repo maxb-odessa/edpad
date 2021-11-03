@@ -3,16 +3,16 @@
 }
 
 #view {
-    font-size: 22px;
-    background: alpha (@base_color, 0.0);
+    font-size: 26px;
+    background: alpha (@base_color, 0.3);
 }
 #view text {
     color: #50FF50;
-    background: alpha (@base_color, 0.0);
+    background: alpha (@base_color, 0.3);
 }
 
 * {
-    background: alpha (@base_color, 0.0);
+    background: alpha (@base_color, 0.3);
 }
 
 
