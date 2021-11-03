@@ -34,6 +34,8 @@ func Start(cmdCh chan *Cmd) error {
 
 	gtk.Init(nil)
 
+	// NOTE: gtk_builder_new_from_file() always aborts on any error, thus tracking
+	// returned error makes no sense
 	builder, err := gtk.BuilderNewFromFile(cfg.GtkResourcesDir + "/edpad.glade")
 	if err != nil {
 		return err

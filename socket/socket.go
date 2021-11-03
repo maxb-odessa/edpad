@@ -16,7 +16,7 @@ func Start(parserCh chan string) error {
 		return nil
 	}
 
-	lsn, err := net.Listen("tcp", cfg.Listen)
+	lsn, err := net.Listen("tcp4", cfg.Listen)
 	if err != nil {
 		return err
 	}

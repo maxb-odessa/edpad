@@ -1,33 +1,45 @@
 #window {
-    background-image: url('/home/vesemir/.local/share/edpad/edpad.png');
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url('/home/user/.local/share/edpad/edpad.png');
 }
 
-#scroll {
+#scroll1 {
     background: alpha (@base_color, 0.0);
 }
 
-#textview {
-    font-size: 24px;
+#scroll2 {
     background: alpha (@base_color, 0.0);
 }
 
-#textview text {
-    color: #8080FF;
+#scroll3 {
     background: alpha (@base_color, 0.0);
 }
 
 
-/*
-#paned1,
-#paned2,
-#paned3,
-#paned4,
-#grid1,
-#grid2,
-#bbox1,
-#bbox2 {
+#view1 {
+    font-size: 20px;
     background: alpha (@base_color, 0.0);
 }
-*/
+#view1 text {
+    color: #AAAA50;
+    background: alpha (@base_color, 0.0);
+}
+
+#view2 {
+    font-size: 22px;
+    background: alpha (@base_color, 0.0);
+}
+#view2 text {
+    color: #50FF50;
+    background: alpha (@base_color, 0.0);
+}
+
+#view3 {
+    font-size: 20px;
+    background: alpha (@base_color, 0.0);
+}
+#view3 text {
+    color: #4040FF;
+    background: alpha (@base_color, 0.0);
+}
+
+
