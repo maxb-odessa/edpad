@@ -9,10 +9,9 @@ import (
 
 var (
 	GtkResourcesDir = os.Getenv("HOME") + "/.local/share/edpad/"
-	// GtkResourcesDir string = "./resources/"
-	FilePipe string
-	Listen   string = "0.0.0.0:55001"
-	Debug    bool   = false
+	FilePipe        string
+	Listen          string = "0.0.0.0:55001"
+	Debug           bool   = false
 )
 
 func Conf() error {

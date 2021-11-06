@@ -1,6 +1,9 @@
 package parser
 
-import "fmt"
+import (
+	"edpad/display"
+	"fmt"
+)
 
 /*
 type FSSDiscoveryScan struct {
@@ -14,7 +17,7 @@ type FSSDiscoveryScan struct {
 }
 */
 
-func evFSSDiscoveryScan(e journalEntry) (string, error) {
+func evFSSDiscoveryScan(e journalEntry) (*display.Data, error) {
 	s := fmt.Sprintf("Signals detected: %0.f/%.0f\n", e["BodyCount"].(float64), e["NonBodyCount"].(float64))
-	return s, nil
+	return &display.Data{Id: "evFSSDiscoveryScan", Text: s}, nil
 }

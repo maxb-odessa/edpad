@@ -12,7 +12,7 @@ import (
 func main() {
 
 	parserCh := make(chan string, 32)
-	displayCh := make(chan *display.Cmd, 32)
+	displayCh := make(chan *display.Data, 32)
 
 	// read cmdline config args
 	if err := cfg.Conf(); err != nil {

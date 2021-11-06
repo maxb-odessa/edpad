@@ -9,7 +9,7 @@ import (
 
 type journalEntry map[string]interface{}
 
-func Start(parserCh chan string, displayCh chan *display.Cmd) error {
+func Start(parserCh chan string, displayCh chan *display.Data) error {
 
 	go func() {
 
@@ -33,7 +33,7 @@ func Start(parserCh chan string, displayCh chan *display.Cmd) error {
 
 // ED journal entries have at least 'timestamp' and 'event' entries
 // others (i.e. joystick events) - don't
-func parse(text string) *display.Cmd {
+func parse(text string) *display.Data {
 
 	log.Debug("parser: %s\n", text)
 

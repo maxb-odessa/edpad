@@ -1,5 +1,7 @@
 package parser
 
+import "edpad/display"
+
 /*
 type SAAScanComplete struct {
         BodyID           int64  `json:"BodyID,omitempty"`
@@ -12,6 +14,6 @@ type SAAScanComplete struct {
 }
 */
 
-func evSAAScanComplete(entry journalEntry) (string, error) {
-	return "", nil
+func evSAAScanComplete(entry journalEntry) (*display.Data, error) {
+	return nil, nil
 }

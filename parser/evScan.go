@@ -1,6 +1,9 @@
 package parser
 
-import "fmt"
+import (
+	"edpad/display"
+	"fmt"
+)
 
 /* PLANET SCAN
 type Scan struct {
@@ -92,20 +95,22 @@ type Scan struct {
 }
 */
 
-func evScan(entry journalEntry) (string, error) {
+func evScan(entry journalEntry) (*display.Data, error) {
 
 	// Star scan
 	if _, ok := entry["StarType"]; ok {
-		return scanStar(entry)
+		s, err := scanStar(entry)
+		return &display.Data{Id: "scanStar", Text: s}, err
 	}
 
 	// Planet scan
 	if _, ok := entry["PlanetClass"]; ok {
-		return scanPlanet(entry)
+		p, err := scanPlanet(entry)
+		return &display.Data{Id: "scanPlanet", Text: p}, err
 	}
 
 	// huh?
-	return "", fmt.Errorf("unknown body type scan")
+	return nil, fmt.Errorf("unknown body type scan")
 }
 
 const SOLAR_RADIUS = 696340000.0

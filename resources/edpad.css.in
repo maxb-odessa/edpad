@@ -1,18 +1,39 @@
-#window {
+window {
     background-image: url('@SHAREDIR@/edpad.png');
-}
-
-#view {
-    font-size: 22px;
-    background: alpha (@base_color, 0.0);
-}
-#view text {
-    color: #50FF50;
-    background: alpha (@base_color, 0.0);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 * {
     background: alpha (@base_color, 0.0);
 }
 
+button {
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #ffaa00;
+    color: #ffaa00;
+    font-size: 20px;
+}
+
+button:hover:active {
+    font-size: 20px;
+    color: #000000;
+    background: #ffaa00;
+}
+
+scrolledwindow {
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #ffaa00;
+}
+
+textview {
+    font-size: 26px;
+}
+textview text {
+    color: #FFFFFF;
+}
 

@@ -5,9 +5,9 @@ import (
 	"edpad/log"
 )
 
-func parseJournal(entry journalEntry) *display.Cmd {
+func parseJournal(entry journalEntry) *display.Data {
 
-	var data string
+	var data *display.Data
 	var err error
 
 	log.Debug("got Journal entry: %+v\n", entry)
@@ -41,5 +41,5 @@ func parseJournal(entry journalEntry) *display.Cmd {
 		return nil
 	}
 
-	return &display.Cmd{Command: display.CMD_TEXT, Data: data}
+	return data
 }

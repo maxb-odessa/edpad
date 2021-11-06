@@ -1,5 +1,7 @@
 package parser
 
+import "edpad/display"
+
 /*
 type FSDJump struct {
         Body      string `json:"Body,omitempty"`
@@ -67,6 +69,6 @@ type FSDJump struct {
 }
 */
 
-func evFSDJump(entry journalEntry) (string, error) {
-	return "", nil
+func evFSDJump(entry journalEntry) (*display.Data, error) {
+	return nil, nil
 }

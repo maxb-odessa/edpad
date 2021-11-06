@@ -1,5 +1,7 @@
 package parser
 
+import "edpad/display"
+
 /*
 type FSSBodySignals struct {
         BodyID   int64  `json:"BodyID,omitempty"`
@@ -15,6 +17,6 @@ type FSSBodySignals struct {
 }
 */
 
-func evFSSBodySignals(entry journalEntry) (string, error) {
-	return "", nil
+func evFSSBodySignals(entry journalEntry) (*display.Data, error) {
+	return nil, nil
 }

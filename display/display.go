@@ -3,6 +3,7 @@ package display
 import (
 	"runtime"
 
+	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 
@@ -10,16 +11,21 @@ import (
 	"edpad/log"
 )
 
-type Cmd struct {
-	Command int
-	Data    string
+type Data struct {
+	Idx    int
+	Single bool
+	Text   string
 }
 
+var dataBuf [16]string
+
 const (
-	CMD_CLEAR = iota
-	CMD_TEXT
-	CMD_SCROLL_UP
-	CMD_SCROLL_DOWN
+	CURRENT_SYSTEM = 0
+	NEXT_JUMP      = 1
+	BODY_SIGNALS   = 2
+	MAIN_STAR      = 3
+	SECONDARY_STAR = 4
+	OTHER_SIGNALS  = 5
 )
 
 type viewPort struct {
@@ -28,7 +34,7 @@ type viewPort struct {
 	mark *gtk.TextMark
 }
 
-func Start(cmdCh chan *Cmd) error {
+func Start(dataCh chan *Data) error {
 
 	runtime.LockOSThread()
 
@@ -58,7 +64,9 @@ func Start(cmdCh chan *Cmd) error {
 	}
 
 	ctx, _ := win.GetStyleContext()
-	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+	//ctx.AddProviderForScreen(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_USER)
 
 	// prepare and configure view ports
 	var vp viewPort
@@ -75,7 +83,9 @@ func Start(cmdCh chan *Cmd) error {
 		return err
 	}
 
-	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+	//ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+	screen, _ := gdk.ScreenGetDefault()
+	gtk.AddProviderForScreen(screen, css, gtk.STYLE_PROVIDER_PRIORITY_USER)
 
 	vp.buff, err = vp.view.GetBuffer()
 	if err != nil {
@@ -85,7 +95,7 @@ func Start(cmdCh chan *Cmd) error {
 	viewPortClear(&vp)
 
 	// start channels reader
-	go cmdReader(&vp, cmdCh)
+	go dataReader(&vp, dataCh)
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
@@ -97,29 +107,26 @@ func Start(cmdCh chan *Cmd) error {
 	return nil
 }
 
-func cmdReader(vp *viewPort, cmdCh chan *Cmd) {
+func dataReader(vp *viewPort, dataCh chan *Data) {
 
 	for {
 		select {
-		case cmd, ok := <-cmdCh:
+		case data, ok := <-dataCh:
 			if !ok {
-				log.Fatal("broken cmd chan")
+				log.Fatal("broken data chan")
 			}
-			glib.IdleAdd(func() bool { return processCmd(vp, cmd) })
+			glib.IdleAdd(func() bool { return processData(vp, data) })
 		}
 	}
 }
 
-func processCmd(vp *viewPort, cmd *Cmd) bool {
+func processData(vp *viewPort, data *Data) bool {
 
-	switch cmd.Command {
-	case CMD_CLEAR:
-		viewPortClear(vp)
-	case CMD_TEXT:
-		viewPortText(vp, cmd.Data)
-	case CMD_SCROLL_UP:
-	case CMD_SCROLL_DOWN:
-	}
+	// put data into appropriate buf[] slot
+
+	viewPortClear(vp)
+	buf := dataBuf[0]
+	viewPortText(vp, buf)
 
 	return false
 }
