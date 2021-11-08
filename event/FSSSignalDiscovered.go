@@ -24,12 +24,12 @@ type FSSSignalDiscovered struct {
 
 func FSSSignalDiscovered(e Entry) (*Event, error) {
 
-	sigName := e["SignalName"]
-	if sn, ok := e["SignalName_Localised"]; ok {
+	sigName := e["SignalName"].(string)
+	if sn, ok := e["SignalName_Localised"].(string); ok {
 		sigName = sn
 	}
 
-	s := fmt.Sprintf("<span foreground=\"yellow\">FSS signal: <i><b>%s</b></i></span>\n", sigName)
+	s := fmt.Sprintf(`<span foreground="cyanw">FSS signal: <i><b>%s</b></i></span>`, sigName)
 
 	return &Event{Type: FSS_SIGNALS, Text: s}, nil
 }

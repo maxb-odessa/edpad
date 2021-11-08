@@ -1,6 +1,7 @@
 package event
 
 import (
+	"edpad/log"
 	"fmt"
 )
 
@@ -114,17 +115,17 @@ func Scan(entry Entry) (*Event, error) {
 
 const SOLAR_RADIUS = 696340000.0
 
-func isMainStar(e Entry) bool {
-	defer func() {
-		recover()
-	}()
+// must be set by FSDJump()
+var mainStarName string
 
-	v, ok := e["Parents"].([]interface{})[0].(map[string]interface{})["Null"].(float64)
-	if ok && v != 0.0 {
-		return false
+func isMainStar(e Entry) bool {
+
+	log.Debug("main star:%s saved main star:%s\n", e["BodyName"].(string), mainStarName)
+	if mainStarName == e["BodyName"].(string) {
+		return true
 	}
 
-	return true
+	return false
 }
 
 func scanStar(e Entry) (Type, string, error) {

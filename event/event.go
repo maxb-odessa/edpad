@@ -11,6 +11,7 @@ type Event struct {
 
 const (
 	FSD_TARGET = iota
+	SYSTEM_NAME
 	START_JUMP
 	MAIN_STAR
 	SEC_STAR
