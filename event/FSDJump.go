@@ -1,6 +1,4 @@
-package parser
-
-import "edpad/display"
+package event
 
 /*
 type FSDJump struct {
@@ -69,6 +67,6 @@ type FSDJump struct {
 }
 */
 
-func evFSDJump(entry journalEntry) (*display.Data, error) {
+func FSDJump(entry Entry) (*Event, error) {
 	return nil, nil
 }

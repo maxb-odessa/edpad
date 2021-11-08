@@ -1,7 +1,6 @@
-package parser
+package event
 
 import (
-	"edpad/display"
 	"fmt"
 )
 
@@ -95,18 +94,18 @@ type Scan struct {
 }
 */
 
-func evScan(entry journalEntry) (*display.Data, error) {
+func Scan(entry Entry) (*Event, error) {
 
 	// Star scan
 	if _, ok := entry["StarType"]; ok {
-		s, err := scanStar(entry)
-		return &display.Data{Id: "scanStar", Text: s}, err
+		t, s, err := scanStar(entry)
+		return &Event{Type: t, Text: s}, err
 	}
 
 	// Planet scan
 	if _, ok := entry["PlanetClass"]; ok {
-		p, err := scanPlanet(entry)
-		return &display.Data{Id: "scanPlanet", Text: p}, err
+		t, p, err := scanPlanet(entry)
+		return &Event{Type: t, Text: p}, err
 	}
 
 	// huh?
@@ -115,31 +114,50 @@ func evScan(entry journalEntry) (*display.Data, error) {
 
 const SOLAR_RADIUS = 696340000.0
 
-func scanStar(e journalEntry) (string, error) {
+func isMainStar(e Entry) bool {
+	defer func() {
+		recover()
+	}()
 
-	isMain := "<span weight=\"bold\">Main Star</span>"
-	if e["BodyID"].(float64) != 0 {
-		isMain = "Sattelite"
+	v, ok := e["Parents"].([]interface{})[0].(map[string]interface{})["Null"].(float64)
+	if ok && v != 0.0 {
+		return false
 	}
 
-	isDisco := ""
-	if e["WasDiscovered"].(bool) {
-		isDisco = "<span foreground=\"yellow\"><i> Discovered!</i></span>"
+	return true
+}
+
+func scanStar(e Entry) (Type, string, error) {
+
+	var stype Type
+	var sname string
+	var discovered string
+
+	if isMainStar(e) {
+		stype = MAIN_STAR
+		sname = `<span weight="bold" foreground="yellow">Star</span>`
+	} else {
+		stype = SEC_STAR
+		sname = `<span foreground="red">Star</span>`
 	}
 
-	star := fmt.Sprintf("%s: %s%.0f, m:%.2f, r:%.2f, t:%.0f%s\n",
-		isMain,
+	if stype == MAIN_STAR && e["WasDiscovered"].(bool) {
+		discovered = `<span foreground="green"><i> Discovered!</i></span>`
+	}
+
+	star := fmt.Sprintf("%s: %s%.0f, m:%.2f, r:%.2f, t:%.0f%s",
+		sname,
 		e["StarType"].(string),
 		e["Subclass"].(float64),
 		e["StellarMass"].(float64),
 		e["Radius"].(float64)/SOLAR_RADIUS,
 		e["SurfaceTemperature"].(float64),
-		isDisco)
+		discovered)
 
-	return star, nil
+	return stype, star, nil
 }
 
-func scanPlanet(entry journalEntry) (string, error) {
+func scanPlanet(entry Entry) (Type, string, error) {
 
-	return "", nil
+	return PLANET, "", nil
 }

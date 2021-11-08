@@ -1,7 +1,6 @@
-package parser
+package event
 
 import (
-	"edpad/display"
 	"fmt"
 )
 
@@ -23,7 +22,7 @@ type FSSSignalDiscovered struct {
 }
 */
 
-func evFSSSignalDiscovered(e journalEntry) (*display.Data, error) {
+func FSSSignalDiscovered(e Entry) (*Event, error) {
 
 	sigName := e["SignalName"]
 	if sn, ok := e["SignalName_Localised"]; ok {
@@ -32,5 +31,5 @@ func evFSSSignalDiscovered(e journalEntry) (*display.Data, error) {
 
 	s := fmt.Sprintf("<span foreground=\"yellow\">FSS signal: <i><b>%s</b></i></span>\n", sigName)
 
-	return &display.Data{Id: "evFSSSignalDiscovered", Text: s}, nil
+	return &Event{Type: FSS_SIGNALS, Text: s}, nil
 }

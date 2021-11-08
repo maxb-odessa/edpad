@@ -1,7 +1,6 @@
-package parser
+package event
 
 import (
-	"edpad/display"
 	"fmt"
 )
 
@@ -16,14 +15,14 @@ type StartJump struct {
 }
 */
 
-func evStartJump(e journalEntry) (*display.Data, error) {
+func StartJump(e Entry) (*Event, error) {
 
 	if jt, ok := e["JumpType"]; !ok || jt != "Hyperspace" {
 		return nil, nil
 	}
 
-	s := fmt.Sprintf("________________________________\n"+
+	s := fmt.Sprintf("________________________________"+
 		"Target: %s (%s)\n", e["StarSystem"].(string), e["StarClass"].(string))
 
-	return &display.Data{Id: "evStartJump", Text: s}, nil
+	return &Event{Type: START_JUMP, Text: s}, nil
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"edpad/cfg"
 	"edpad/display"
+	"edpad/event"
 	"edpad/file"
 	"edpad/log"
 	"edpad/parser"
@@ -12,7 +13,7 @@ import (
 func main() {
 
 	parserCh := make(chan string, 32)
-	displayCh := make(chan *display.Data, 32)
+	eventCh := make(chan *event.Event, 32)
 
 	// read cmdline config args
 	if err := cfg.Conf(); err != nil {
@@ -30,12 +31,12 @@ func main() {
 	}
 
 	// start json parser
-	if err := parser.Start(parserCh, displayCh); err != nil {
+	if err := parser.Start(parserCh, eventCh); err != nil {
 		log.Fatal("%s\n", err)
 	}
 
 	// start display and wait for it to finish
-	if err := display.Start(displayCh); err != nil {
+	if err := display.Start(eventCh); err != nil {
 		log.Fatal("%s\n", err)
 	}
 

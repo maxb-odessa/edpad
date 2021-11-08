@@ -1,7 +1,6 @@
-package parser
+package event
 
 import (
-	"edpad/display"
 	"fmt"
 )
 
@@ -17,7 +16,9 @@ type FSSDiscoveryScan struct {
 }
 */
 
-func evFSSDiscoveryScan(e journalEntry) (*display.Data, error) {
-	s := fmt.Sprintf("Signals detected: %0.f/%.0f\n", e["BodyCount"].(float64), e["NonBodyCount"].(float64))
-	return &display.Data{Id: "evFSSDiscoveryScan", Text: s}, nil
+func FSSDiscoveryScan(e Entry) (*Event, error) {
+	s := fmt.Sprintf(`<span foreground="cyan">Body signals: %0.f(%.0f)</span>`,
+		e["BodyCount"].(float64),
+		e["NonBodyCount"].(float64))
+	return &Event{Type: BODY_SIGNALS, Text: s}, nil
 }

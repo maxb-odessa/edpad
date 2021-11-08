@@ -1,7 +1,6 @@
-package parser
+package event
 
 import (
-	"edpad/display"
 	"fmt"
 )
 
@@ -16,11 +15,11 @@ type FSDTarget struct {
 }
 */
 
-func evFSDTarget(entry journalEntry) (*display.Data, error) {
-	s := fmt.Sprintf("<span foreground=\"red\"><i>Jumping to: %s (%s), jumps left: %.0f</i></span>\n",
+func FSDTarget(entry Entry) (*Event, error) {
+	s := fmt.Sprintf(`<span foreground="blue"><i>Jumping to: %s (%s), left: %.0f</i></span>`,
 		entry["Name"].(string),
 		entry["StarClass"].(string),
 		entry["RemainingJumpsInRoute"].(float64))
 
-	return &display.Data{Id: "FSDTarget", Text: s}, nil
+	return &Event{Type: FSD_TARGET, Text: s}, nil
 }

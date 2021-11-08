@@ -1,9 +1,7 @@
-package parser
-
-import "edpad/display"
+package event
 
 /*
-type SAASignalsFound struct {
+type FSSBodySignals struct {
         BodyID   int64  `json:"BodyID,omitempty"`
         BodyName string `json:"BodyName,omitempty"`
         Signals  []struct {
@@ -17,6 +15,6 @@ type SAASignalsFound struct {
 }
 */
 
-func evSAASignalsFound(entry journalEntry) (*display.Data, error) {
+func FSSBodySignals(entry Entry) (*Event, error) {
 	return nil, nil
 }
