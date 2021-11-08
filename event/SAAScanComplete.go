@@ -1,6 +1,4 @@
-package parser
-
-import "edpad/display"
+package event
 
 /*
 type SAAScanComplete struct {
@@ -14,6 +12,6 @@ type SAAScanComplete struct {
 }
 */
 
-func evSAAScanComplete(entry journalEntry) (*display.Data, error) {
+func SAAScanComplete(entry Entry) (*Event, error) {
 	return nil, nil
 }

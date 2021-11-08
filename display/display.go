@@ -2,31 +2,39 @@ package display
 
 import (
 	"runtime"
+	"strings"
 
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 
 	"edpad/cfg"
+	"edpad/event"
 	"edpad/log"
 )
 
 type Data struct {
-	Idx    int
-	Single bool
-	Text   string
+	Id   string
+	Text string
 }
 
-var dataBuf [16]string
+type prop struct {
+	pos   int
+	glue  bool
+	clear bool
+}
 
-const (
-	CURRENT_SYSTEM = 0
-	NEXT_JUMP      = 1
-	BODY_SIGNALS   = 2
-	MAIN_STAR      = 3
-	SECONDARY_STAR = 4
-	OTHER_SIGNALS  = 5
-)
+var props = map[event.Type]prop{
+	event.START_JUMP:   prop{pos: 0, glue: false, clear: true},
+	event.FSD_TARGET:   prop{pos: 0, glue: false, clear: false},
+	event.BODY_SIGNALS: prop{pos: 1, glue: false, clear: false},
+	event.MAIN_STAR:    prop{pos: 2, glue: false, clear: false},
+	event.SEC_STAR:     prop{pos: 3, glue: true, clear: false},
+	event.PLANET:       prop{pos: 4, glue: true, clear: false},
+	event.FSS_SIGNALS:  prop{pos: 5, glue: true, clear: false},
+}
+
+var textBuf [8]string
 
 type viewPort struct {
 	view *gtk.TextView
@@ -34,7 +42,7 @@ type viewPort struct {
 	mark *gtk.TextMark
 }
 
-func Start(dataCh chan *Data) error {
+func Start(eventCh chan *event.Event) error {
 
 	runtime.LockOSThread()
 
@@ -47,12 +55,12 @@ func Start(dataCh chan *Data) error {
 		return err
 	}
 
-	obj, err := builder.GetObject("window")
+	winObj, err := builder.GetObject("window")
 	if err != nil {
 		return err
 	}
 
-	win := obj.(*gtk.ApplicationWindow)
+	win := winObj.(*gtk.ApplicationWindow)
 	win.Connect("destroy", func() {
 		gtk.MainQuit()
 	})
@@ -62,31 +70,16 @@ func Start(dataCh chan *Data) error {
 	if err != nil {
 		return err
 	}
-
-	ctx, _ := win.GetStyleContext()
-
-	//ctx.AddProviderForScreen(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-	ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_USER)
-
-	// prepare and configure view ports
-	var vp viewPort
-
-	obj, err = builder.GetObject("textview")
-	if err != nil {
-		return err
-	}
-
-	vp.view = obj.(*gtk.TextView)
-
-	ctx, err = vp.view.GetStyleContext()
-	if err != nil {
-		return err
-	}
-
-	//ctx.AddProvider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 	screen, _ := gdk.ScreenGetDefault()
 	gtk.AddProviderForScreen(screen, css, gtk.STYLE_PROVIDER_PRIORITY_USER)
 
+	obj, err := builder.GetObject("textview")
+	if err != nil {
+		return err
+	}
+
+	var vp viewPort
+	vp.view = obj.(*gtk.TextView)
 	vp.buff, err = vp.view.GetBuffer()
 	if err != nil {
 		return err
@@ -95,7 +88,7 @@ func Start(dataCh chan *Data) error {
 	viewPortClear(&vp)
 
 	// start channels reader
-	go dataReader(&vp, dataCh)
+	go eventReader(&vp, eventCh)
 
 	// Recursively show all widgets contained in this window.
 	win.ShowAll()
@@ -107,28 +100,44 @@ func Start(dataCh chan *Data) error {
 	return nil
 }
 
-func dataReader(vp *viewPort, dataCh chan *Data) {
+func eventReader(vp *viewPort, eventCh chan *event.Event) {
 
 	for {
 		select {
-		case data, ok := <-dataCh:
+		case ev, ok := <-eventCh:
 			if !ok {
-				log.Fatal("broken data chan")
+				log.Fatal("broken event chan")
 			}
-			glib.IdleAdd(func() bool { return processData(vp, data) })
+			glib.IdleAdd(func() bool { return processEvent(vp, ev) })
 		}
 	}
 }
 
-func processData(vp *viewPort, data *Data) bool {
+func processEvent(vp *viewPort, ev *event.Event) (res bool) {
+	res = false
 
-	// put data into appropriate buf[] slot
+	evProp, ok := props[ev.Type]
+	if !ok {
+		log.Err("unknow data id '%s'\n", ev.Type)
+		return
+	}
 
 	viewPortClear(vp)
-	buf := dataBuf[0]
-	viewPortText(vp, buf)
 
-	return false
+	if evProp.clear {
+		return
+	}
+
+	if evProp.glue {
+		textBuf[evProp.pos] += "\n" + ev.Text
+	} else {
+		textBuf[evProp.pos] = ev.Text
+	}
+
+	text := strings.Join(textBuf[:], "\n")
+	viewPortText(vp, text)
+
+	return
 }
 
 func viewPortText(vp *viewPort, text string) bool {

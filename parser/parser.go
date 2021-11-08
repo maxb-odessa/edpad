@@ -3,13 +3,11 @@ package parser
 import (
 	"encoding/json"
 
-	"edpad/display"
+	"edpad/event"
 	"edpad/log"
 )
 
-type journalEntry map[string]interface{}
-
-func Start(parserCh chan string, displayCh chan *display.Data) error {
+func Start(parserCh chan string, eventCh chan *event.Event) error {
 
 	go func() {
 
@@ -19,8 +17,8 @@ func Start(parserCh chan string, displayCh chan *display.Data) error {
 				if !ok {
 					return
 				}
-				if cmd := parse(text); cmd != nil {
-					displayCh <- cmd
+				if ev := parse(text); ev != nil {
+					eventCh <- ev
 				}
 			}
 
@@ -33,11 +31,11 @@ func Start(parserCh chan string, displayCh chan *display.Data) error {
 
 // ED journal entries have at least 'timestamp' and 'event' entries
 // others (i.e. joystick events) - don't
-func parse(text string) *display.Data {
+func parse(text string) *event.Event {
 
 	log.Debug("parser: %s\n", text)
 
-	entry := make(journalEntry)
+	var entry event.Entry
 
 	if err := json.Unmarshal([]byte(text), &entry); err != nil {
 		log.Err("json unmarshal: %s\n", err)

@@ -1,45 +1,26 @@
 package parser
 
 import (
-	"edpad/display"
+	"edpad/event"
 	"edpad/log"
 )
 
-func parseJournal(entry journalEntry) *display.Data {
-
-	var data *display.Data
-	var err error
+func parseJournal(entry event.Entry) *event.Event {
 
 	log.Debug("got Journal entry: %+v\n", entry)
 
-	evname := entry["event"]
-	switch evname {
-	case "StartJump":
-		data, err = evStartJump(entry)
-	case "FSDTarget":
-		data, err = evFSDTarget(entry)
-	case "FSDJump":
-		data, err = evFSDJump(entry)
-	case "FSSDiscoveryScan":
-		data, err = evFSSDiscoveryScan(entry)
-	case "FSSSignalDiscovered":
-		data, err = evFSSSignalDiscovered(entry)
-	case "FSSBodySignals":
-		data, err = evFSSBodySignals(entry)
-	case "SAASignalsFound":
-		data, err = evSAASignalsFound(entry)
-	case "SAAScanComplete":
-		data, err = evSAAScanComplete(entry)
-	case "Scan":
-		data, err = evScan(entry)
-	default:
-		log.Debug("ignoring Journal event '%s'\n", evname)
-	}
-
-	if err != nil {
-		log.Err("bad journal entry: %s\n", err)
+	evname, ok := entry["event"]
+	if !ok {
+		log.Warn("broken journal entry: missing 'event' field\n")
 		return nil
 	}
 
-	return data
+	if evfunc, ok := event.Handlers[evname.(string)]; !ok {
+		log.Warn("handling of event '%s' is not implemented\n", evname)
+		return nil
+	} else if ev, err := evfunc(entry); err == nil {
+		return ev
+	}
+
+	return nil
 }
