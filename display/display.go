@@ -27,14 +27,17 @@ type prop struct {
 var props = map[event.Type]prop{
 	event.START_JUMP:   prop{pos: 0, glue: false, clear: true},
 	event.FSD_TARGET:   prop{pos: 0, glue: false, clear: false},
-	event.BODY_SIGNALS: prop{pos: 1, glue: false, clear: false},
-	event.MAIN_STAR:    prop{pos: 2, glue: false, clear: false},
-	event.SEC_STAR:     prop{pos: 3, glue: true, clear: false},
-	event.PLANET:       prop{pos: 4, glue: true, clear: false},
-	event.FSS_SIGNALS:  prop{pos: 5, glue: true, clear: false},
+	event.SYSTEM_NAME:  prop{pos: 1, glue: false, clear: false},
+	event.BODY_SIGNALS: prop{pos: 2, glue: false, clear: false},
+	event.MAIN_STAR:    prop{pos: 3, glue: false, clear: false},
+	event.SEC_STAR:     prop{pos: 4, glue: true, clear: false},
+	event.PLANET:       prop{pos: 5, glue: true, clear: false},
+	event.FSS_SIGNALS:  prop{pos: 6, glue: true, clear: false},
 }
 
-var textBuf [8]string
+const textBufLen = 8
+
+var textBuf []string
 
 type viewPort struct {
 	view *gtk.TextView
@@ -45,6 +48,8 @@ type viewPort struct {
 func Start(eventCh chan *event.Event) error {
 
 	runtime.LockOSThread()
+
+	textBuf = make([]string, textBufLen)
 
 	gtk.Init(nil)
 
@@ -125,11 +130,16 @@ func processEvent(vp *viewPort, ev *event.Event) (res bool) {
 	viewPortClear(vp)
 
 	if evProp.clear {
+		textBuf = nil
+		textBuf = make([]string, textBufLen)
 		return
 	}
 
 	if evProp.glue {
-		textBuf[evProp.pos] += "\n" + ev.Text
+		if textBuf[evProp.pos] != "" {
+			textBuf[evProp.pos] += "\n"
+		}
+		textBuf[evProp.pos] += ev.Text
 	} else {
 		textBuf[evProp.pos] = ev.Text
 	}

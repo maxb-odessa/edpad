@@ -67,6 +67,8 @@ type FSDJump struct {
 }
 */
 
-func FSDJump(entry Entry) (*Event, error) {
-	return nil, nil
+func FSDJump(e Entry) (*Event, error) {
+	// update main star name (required by Scan())
+	mainStarName = e["Body"].(string)
+	return &Event{Type: SYSTEM_NAME, Text: "System: " + e["StarSystem"].(string)}, nil
 }

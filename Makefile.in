@@ -8,7 +8,7 @@ GOBIN		=	${PREFIX}/bin
 all:
 	go build -o edpad
 
-install: all
+install:
 	go env -w GOBIN=${GOBIN}
 	go install
 	mkdir -p ${SHAREDIR}
