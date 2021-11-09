@@ -21,11 +21,10 @@
         <property name="can-focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="wide-handle">True</property>
         <child>
           <object class="GtkScrolledWindow" id="scroll">
             <property name="name">scroll</property>
-            <property name="width-request">850</property>
+            <property name="width-request">750</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="hexpand">True</property>
@@ -63,17 +62,19 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
-            <property name="wide-handle">True</property>
             <child>
               <!-- n-columns=5 n-rows=1 -->
-              <object class="GtkGrid">
+              <object class="GtkGrid" id="tabs">
+                <property name="name">tabs</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-start">5</property>
+                <property name="margin-end">5</property>
+                <property name="margin-top">5</property>
+                <property name="margin-bottom">5</property>
                 <property name="hexpand">True</property>
                 <property name="row-spacing">5</property>
                 <property name="column-spacing">5</property>
-                <property name="row-homogeneous">True</property>
-                <property name="column-homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="esc">
                     <property name="label">gtk-close</property>
@@ -92,8 +93,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="1">
                     <property name="label" translatable="yes">[1]</property>
+                    <property name="name">1</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -106,8 +108,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="2">
                     <property name="label" translatable="yes">[2]</property>
+                    <property name="name">2</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -120,8 +123,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="3">
                     <property name="label" translatable="yes">[3]</property>
+                    <property name="name">3</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -134,8 +138,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="4">
                     <property name="label" translatable="yes">[4]</property>
+                    <property name="name">4</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -161,20 +166,25 @@
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
-                <property name="wide-handle">True</property>
                 <child>
                   <!-- n-columns=2 n-rows=1 -->
-                  <object class="GtkGrid">
+                  <object class="GtkGrid" id="tabnav">
+                    <property name="name">tabnav</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-start">5</property>
+                    <property name="margin-end">5</property>
+                    <property name="margin-top">5</property>
+                    <property name="margin-bottom">5</property>
                     <property name="hexpand">True</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">5</property>
                     <property name="row-homogeneous">True</property>
                     <property name="column-homogeneous">True</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="prev">
                         <property name="label">gtk-media-previous</property>
+                        <property name="name">prev</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
@@ -190,8 +200,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="next">
                         <property name="label">gtk-media-next</property>
+                        <property name="name">next</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
@@ -220,13 +231,16 @@
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="wide-handle">True</property>
                     <child>
                       <!-- n-columns=3 n-rows=3 -->
-                      <object class="GtkGrid" id="grid1">
-                        <property name="name">grid1</property>
+                      <object class="GtkGrid" id="dirs">
+                        <property name="name">dirs</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">5</property>
+                        <property name="margin-end">5</property>
+                        <property name="margin-top">5</property>
+                        <property name="margin-bottom">5</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="row-spacing">5</property>
@@ -234,8 +248,9 @@
                         <property name="row-homogeneous">True</property>
                         <property name="column-homogeneous">True</property>
                         <child>
-                          <object class="GtkButton">
+                          <object class="GtkButton" id="up">
                             <property name="label">gtk-go-up</property>
+                            <property name="name">up</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -251,8 +266,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton">
+                          <object class="GtkButton" id="back">
                             <property name="label">gtk-go-back</property>
+                            <property name="name">back</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -268,8 +284,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton">
+                          <object class="GtkButton" id="ok">
                             <property name="label">gtk-ok</property>
+                            <property name="name">ok</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -285,8 +302,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton">
+                          <object class="GtkButton" id="forward">
                             <property name="label">gtk-go-forward</property>
+                            <property name="name">forward</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -302,8 +320,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton">
+                          <object class="GtkButton" id="down">
                             <property name="label">gtk-go-down</property>
+                            <property name="name">down</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -342,6 +361,10 @@
                         <property name="name">grid2</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="margin-start">5</property>
+                        <property name="margin-end">5</property>
+                        <property name="margin-top">5</property>
+                        <property name="margin-bottom">5</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="row-spacing">5</property>

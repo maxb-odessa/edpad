@@ -8,6 +8,8 @@ window {
     background: alpha (@base_color, 0.0);
 }
 
+
+/* general buttons */
 button {
     border-radius: 8px;
     border-style: solid;
@@ -23,6 +25,73 @@ button:hover:active {
     background: #ffaa00;
 }
 
+
+/* ESC button */
+button#esc {
+    border-color: red;
+    color: red;
+}
+
+button#esc:hover:active {
+    background:red;
+    color: black;
+}
+
+
+/* TABS buttons */
+button#1,
+button#2,
+button#3,
+button#4 {
+    border-color: blue;
+    color: blue;
+}
+
+button#1:hover:active,
+button#2:hover:active,
+button#3:hover:active,
+button#4:hover:active {
+    background: blue;
+    color: black;
+}
+
+
+/* TABS navigation buttons */
+button#next,
+button#prev {
+    border-color: cyan;
+    color: cyan;
+}
+
+button#next:hover:active,
+button#prev:hover:active {
+    background: cyan;
+    color: black;
+}
+
+
+
+/* DIRECTION buttons */
+button#up,
+button#down,
+button#forward,
+button#back,
+button#ok {
+    border-color: white;
+    color: white;
+}
+
+button#up:hover:active,
+button#down:hover:active,
+button#forward:hover:active,
+button#back:hover:active,
+button#ok:hover:active {
+    background: white;
+    color: black;
+}
+
+
+/* VIEWPORT */
 scrolledwindow {
     border-radius: 8px;
     border-style: solid;
