@@ -1,5 +1,5 @@
 window {
-    background-image: url('/home/vesemir/.local/share/edpad/edpad.png');
+    background-image: url('@SHAREDIR@/edpad.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -27,12 +27,12 @@ button:hover:active {
 
 
 /* ESC button */
-button#esc {
+button#Escape {
     border-color: red;
     color: red;
 }
 
-button#esc:hover:active {
+button#Escape:hover:active {
     background:red;
     color: black;
 }
@@ -57,14 +57,14 @@ button#4:hover:active {
 
 
 /* TABS navigation buttons */
-button#next,
-button#prev {
+button#e,
+button#q {
     border-color: cyan;
     color: cyan;
 }
 
-button#next:hover:active,
-button#prev:hover:active {
+button#e:hover:active,
+button#q:hover:active {
     background: cyan;
     color: black;
 }
@@ -72,20 +72,20 @@ button#prev:hover:active {
 
 
 /* DIRECTION buttons */
-button#up,
-button#down,
-button#forward,
-button#back,
-button#ok {
+button#w,
+button#s,
+button#d,
+button#a,
+button#space {
     border-color: white;
     color: white;
 }
 
-button#up:hover:active,
-button#down:hover:active,
-button#forward:hover:active,
-button#back:hover:active,
-button#ok:hover:active {
+button#w:hover:active,
+button#s:hover:active,
+button#d:hover:active,
+button#a:hover:active,
+button#space:hover:active {
     background: white;
     color: black;
 }
