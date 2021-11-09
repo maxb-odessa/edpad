@@ -9,7 +9,11 @@ import (
 
 var lck sync.Mutex
 
-var DoDebug bool
+var debug bool
+
+func SetDebug(d bool) {
+	debug = d
+}
 
 // log error message
 func genlog(level string, format string, args ...interface{}) {
@@ -41,7 +45,7 @@ func Fatal(format string, args ...interface{}) {
 
 // Debug prints some debug if ELDA_DEBUD env var defined
 func Debug(format string, args ...interface{}) {
-	if DoDebug {
+	if debug {
 		genlog("DEBUG", format, args...)
 	}
 }

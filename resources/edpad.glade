@@ -77,8 +77,10 @@
                 <property name="column-spacing">5</property>
                 <child>
                   <object class="GtkButton" id="esc">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label">gtk-close</property>
-                    <property name="name">esc</property>
+                    <property name="name">Escape</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -94,6 +96,8 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="1">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[1]</property>
                     <property name="name">1</property>
                     <property name="visible">True</property>
@@ -109,6 +113,8 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="2">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[2]</property>
                     <property name="name">2</property>
                     <property name="visible">True</property>
@@ -124,6 +130,8 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="3">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[3]</property>
                     <property name="name">3</property>
                     <property name="visible">True</property>
@@ -139,6 +147,8 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="4">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[4]</property>
                     <property name="name">4</property>
                     <property name="visible">True</property>
@@ -183,8 +193,10 @@
                     <property name="column-homogeneous">True</property>
                     <child>
                       <object class="GtkButton" id="prev">
+                        <signal name="pressed" handler="onPress" swapped="no"/>
+                        <signal name="released" handler="onRelease" swapped="no"/>
                         <property name="label">gtk-media-previous</property>
-                        <property name="name">prev</property>
+                        <property name="name">q</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
@@ -201,8 +213,10 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="next">
+                        <signal name="pressed" handler="onPress" swapped="no"/>
+                        <signal name="released" handler="onRelease" swapped="no"/>
                         <property name="label">gtk-media-next</property>
-                        <property name="name">next</property>
+                        <property name="name">e</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
@@ -249,8 +263,10 @@
                         <property name="column-homogeneous">True</property>
                         <child>
                           <object class="GtkButton" id="up">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                             <property name="label">gtk-go-up</property>
-                            <property name="name">up</property>
+                            <property name="name">w</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -267,8 +283,10 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="back">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                             <property name="label">gtk-go-back</property>
-                            <property name="name">back</property>
+                            <property name="name">a</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -285,8 +303,10 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="ok">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                             <property name="label">gtk-ok</property>
-                            <property name="name">ok</property>
+                            <property name="name">space</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -303,8 +323,10 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="forward">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                             <property name="label">gtk-go-forward</property>
-                            <property name="name">forward</property>
+                            <property name="name">d</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
@@ -321,8 +343,10 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="down">
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                             <property name="label">gtk-go-down</property>
-                            <property name="name">down</property>
+                            <property name="name">s</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>

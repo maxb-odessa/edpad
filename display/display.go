@@ -11,6 +11,7 @@ import (
 	"edpad/cfg"
 	"edpad/event"
 	"edpad/log"
+	"edpad/xdo"
 )
 
 type Data struct {
@@ -58,6 +59,33 @@ func Start(eventCh chan *event.Event) error {
 	builder, err := gtk.BuilderNewFromFile(cfg.GtkResourcesDir + "/edpad.glade")
 	if err != nil {
 		return err
+	}
+
+	if remoteDisplay := xdo.New(cfg.Xdisplay); remoteDisplay != nil {
+
+		onButtonDownFunc := func(s interface{}) {
+			if name, err := s.(*gtk.Button).GetName(); err == nil {
+				log.Debug("button down: %s\n", name)
+				remoteDisplay.KeyDown(name, 1000)
+			}
+		}
+
+		onButtonUpFunc := func(s interface{}) {
+			if name, err := s.(*gtk.Button).GetName(); err == nil {
+				log.Debug("button up: %s\n", name)
+				remoteDisplay.KeyUp(name, 1000)
+			}
+		}
+
+		signals := map[string]interface{}{
+			"onPress":   onButtonDownFunc,
+			"onRelease": onButtonUpFunc,
+		}
+
+		builder.ConnectSignals(signals)
+
+	} else if cfg.Xdisplay != "" {
+		log.Warn("Failed to connect to '%s', keypad is disabled\n", cfg.Xdisplay)
 	}
 
 	winObj, err := builder.GetObject("window")
