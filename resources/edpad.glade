@@ -8,19 +8,13 @@
   <object class="GtkApplicationWindow" id="window">
     <property name="name">window</property>
     <property name="can-focus">False</property>
-    <property name="hexpand">True</property>
-    <property name="vexpand">True</property>
-    <property name="default-width">1280</property>
-    <property name="default-height">800</property>
-    <property name="gravity">center</property>
-    <property name="show-menubar">False</property>
     <child>
-      <object class="GtkPaned" id="paned1">
-        <property name="name">paned1</property>
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
+        <property name="can-focus">False</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
+        <property name="spacing">3</property>
         <child>
           <object class="GtkScrolledWindow" id="scroll">
             <property name="name">scroll</property>
@@ -50,35 +44,28 @@
             </child>
           </object>
           <packing>
-            <property name="resize">True</property>
-            <property name="shrink">True</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkPaned" id="paned2">
-            <property name="name">paned2</property>
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
+            <property name="can-focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">5</property>
             <child>
-              <!-- n-columns=5 n-rows=1 -->
-              <object class="GtkGrid" id="tabs">
-                <property name="name">tabs</property>
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="margin-start">5</property>
-                <property name="margin-end">5</property>
-                <property name="margin-top">5</property>
-                <property name="margin-bottom">5</property>
                 <property name="hexpand">True</property>
-                <property name="row-spacing">5</property>
-                <property name="column-spacing">5</property>
+                <property name="vexpand">True</property>
+                <property name="spacing">5</property>
                 <child>
                   <object class="GtkButton" id="esc">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label">gtk-close</property>
                     <property name="name">Escape</property>
                     <property name="visible">True</property>
@@ -88,16 +75,17 @@
                     <property name="use-stock">True</property>
                     <property name="image-position">top</property>
                     <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">0</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="1">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[1]</property>
                     <property name="name">1</property>
                     <property name="visible">True</property>
@@ -105,16 +93,17 @@
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">0</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="2">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[2]</property>
                     <property name="name">2</property>
                     <property name="visible">True</property>
@@ -122,16 +111,17 @@
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="left-attach">2</property>
-                    <property name="top-attach">0</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="3">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[3]</property>
                     <property name="name">3</property>
                     <property name="visible">True</property>
@@ -139,16 +129,17 @@
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="left-attach">3</property>
-                    <property name="top-attach">0</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="4">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
                     <property name="label" translatable="yes">[4]</property>
                     <property name="name">4</property>
                     <property name="visible">True</property>
@@ -156,459 +147,424 @@
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="left-attach">4</property>
-                    <property name="top-attach">0</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
               </object>
               <packing>
-                <property name="resize">False</property>
-                <property name="shrink">True</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkPaned" id="paned3">
-                <property name="name">paned3</property>
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can-focus">True</property>
+                <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
-                <property name="orientation">vertical</property>
+                <property name="spacing">5</property>
+                <property name="homogeneous">True</property>
                 <child>
-                  <!-- n-columns=2 n-rows=1 -->
-                  <object class="GtkGrid" id="tabnav">
-                    <property name="name">tabnav</property>
+                  <object class="GtkButton" id="prev">
+                    <property name="label">gtk-media-previous</property>
+                    <property name="name">q</property>
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-start">5</property>
-                    <property name="margin-end">5</property>
-                    <property name="margin-top">5</property>
-                    <property name="margin-bottom">5</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="row-spacing">5</property>
-                    <property name="column-spacing">5</property>
-                    <property name="row-homogeneous">True</property>
-                    <property name="column-homogeneous">True</property>
-                    <child>
-                      <object class="GtkButton" id="prev">
-                        <signal name="pressed" handler="onPress" swapped="no"/>
-                        <signal name="released" handler="onRelease" swapped="no"/>
-                        <property name="label">gtk-media-previous</property>
-                        <property name="name">q</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="use-stock">True</property>
-                        <property name="image-position">top</property>
-                        <property name="always-show-image">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="next">
-                        <signal name="pressed" handler="onPress" swapped="no"/>
-                        <signal name="released" handler="onRelease" swapped="no"/>
-                        <property name="label">gtk-media-next</property>
-                        <property name="name">e</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="use-stock">True</property>
-                        <property name="image-position">top</property>
-                        <property name="always-show-image">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
+                    <property name="vexpand">True</property>
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="resize">False</property>
-                    <property name="shrink">True</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkPaned" id="paned4">
-                    <property name="name">paned4</property>
+                  <object class="GtkButton" id="next">
+                    <property name="label">gtk-media-next</property>
+                    <property name="name">e</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <!-- n-columns=3 n-rows=3 -->
-                      <object class="GtkGrid" id="dirs">
-                        <property name="name">dirs</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="margin-start">5</property>
-                        <property name="margin-end">5</property>
-                        <property name="margin-top">5</property>
-                        <property name="margin-bottom">5</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="row-spacing">5</property>
-                        <property name="column-spacing">5</property>
-                        <property name="row-homogeneous">True</property>
-                        <property name="column-homogeneous">True</property>
-                        <child>
-                          <object class="GtkButton" id="up">
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
                     <signal name="pressed" handler="onPress" swapped="no"/>
                     <signal name="released" handler="onRelease" swapped="no"/>
-                            <property name="label">gtk-go-up</property>
-                            <property name="name">w</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="use-stock">True</property>
-                            <property name="image-position">top</property>
-                            <property name="always-show-image">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="back">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
-                            <property name="label">gtk-go-back</property>
-                            <property name="name">a</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="use-stock">True</property>
-                            <property name="image-position">top</property>
-                            <property name="always-show-image">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="ok">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
-                            <property name="label">gtk-ok</property>
-                            <property name="name">space</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="use-stock">True</property>
-                            <property name="image-position">top</property>
-                            <property name="always-show-image">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="forward">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
-                            <property name="label">gtk-go-forward</property>
-                            <property name="name">d</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="use-stock">True</property>
-                            <property name="image-position">top</property>
-                            <property name="always-show-image">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="down">
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
-                            <property name="label">gtk-go-down</property>
-                            <property name="name">s</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="use-stock">True</property>
-                            <property name="image-position">top</property>
-                            <property name="always-show-image">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="resize">True</property>
-                        <property name="shrink">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <!-- n-columns=4 n-rows=4 -->
-                      <object class="GtkGrid" id="grid2">
-                        <property name="name">grid2</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="margin-start">5</property>
-                        <property name="margin-end">5</property>
-                        <property name="margin-top">5</property>
-                        <property name="margin-bottom">5</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="row-spacing">5</property>
-                        <property name="column-spacing">5</property>
-                        <property name="row-homogeneous">True</property>
-                        <property name="column-homogeneous">True</property>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">bB</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">bC</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">3</property>
-                            <property name="top-attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b5</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b6</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b7</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b8</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">3</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b1</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b2</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b3</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b4</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">3</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b9</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">bA</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">bD</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">bE</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">bF</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">b0</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">3</property>
-                            <property name="top-attach">3</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="resize">True</property>
-                        <property name="shrink">True</property>
-                      </packing>
-                    </child>
                   </object>
                   <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">True</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
-                <property name="resize">True</property>
-                <property name="shrink">True</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <!-- n-columns=3 n-rows=3 -->
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="row-spacing">5</property>
+                <property name="column-spacing">5</property>
+                <property name="row-homogeneous">True</property>
+                <property name="column-homogeneous">True</property>
+                <child>
+                  <object class="GtkButton" id="forward">
+                    <property name="label">gtk-go-forward</property>
+                    <property name="name">d</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="up">
+                    <property name="label">gtk-go-up</property>
+                    <property name="name">w</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="ok">
+                    <property name="label">gtk-ok</property>
+                    <property name="name">space</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="back">
+                    <property name="label">gtk-go-back</property>
+                    <property name="name">a</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="down">
+                    <property name="label">gtk-go-down</property>
+                    <property name="name">s</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="use-stock">True</property>
+                    <property name="image-position">top</property>
+                    <property name="always-show-image">True</property>
+                    <signal name="pressed" handler="onPress" swapped="no"/>
+                    <signal name="released" handler="onRelease" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <!-- n-columns=4 n-rows=4 -->
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="row-spacing">5</property>
+                <property name="column-spacing">5</property>
+                <property name="row-homogeneous">True</property>
+                <property name="column-homogeneous">True</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b0</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b1</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b2</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b3</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b4</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b5</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b6</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b7</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b8</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">b9</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">bA</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">bB</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">bC</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">bD</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">bE</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">bF</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">3</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>
           <packing>
-            <property name="resize">True</property>
-            <property name="shrink">True</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
