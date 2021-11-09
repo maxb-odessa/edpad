@@ -62,8 +62,8 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
                 <property name="spacing">5</property>
+                <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="esc">
                     <property name="label">gtk-close</property>
@@ -71,6 +71,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="hexpand">True</property>
                     <property name="relief">half</property>
                     <property name="use-stock">True</property>
                     <property name="image-position">top</property>
@@ -92,7 +93,6 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <signal name="pressed" handler="onPress" swapped="no"/>
                     <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
@@ -110,7 +110,6 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <signal name="pressed" handler="onPress" swapped="no"/>
                     <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
@@ -128,7 +127,6 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <signal name="pressed" handler="onPress" swapped="no"/>
                     <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
@@ -146,7 +144,6 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <signal name="pressed" handler="onPress" swapped="no"/>
                     <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
@@ -158,7 +155,7 @@
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
@@ -168,7 +165,6 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
                 <property name="spacing">5</property>
                 <property name="homogeneous">True</property>
                 <child>
@@ -179,7 +175,6 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <property name="use-stock">True</property>
                     <property name="image-position">top</property>
                     <property name="always-show-image">True</property>
@@ -200,7 +195,6 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <property name="use-stock">True</property>
                     <property name="image-position">top</property>
                     <property name="always-show-image">True</property>
@@ -215,7 +209,7 @@
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
