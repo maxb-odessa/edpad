@@ -1,2 +1,2 @@
- - integrate XDO: use gtk button id (.buttonId is widget id) as key name (#buttonName is widget name)
+ - integrate XDO: use gtk button name (.buttonId is widget id) as key name (#buttonName is widget name)
 
