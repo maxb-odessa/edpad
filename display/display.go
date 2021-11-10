@@ -20,10 +20,10 @@ type Data struct {
 }
 
 type prop struct {
-	pos     int
-	glue    bool
-	clear   bool
-	persist bool
+	pos     int  // position in textBuf array
+	glue    bool // concat with existing string or replace
+	clear   bool // clear whole textBuf on this event
+	persist bool // this textBuf entry must survive 'clear' event
 }
 
 var props = map[event.Type]prop{
@@ -117,7 +117,7 @@ func Start(eventCh chan *event.Event) error {
 
 	viewPortClear(&vp)
 
-	// start channels reader
+	// start events reader
 	go eventReader(&vp, eventCh)
 
 	// Recursively show all widgets contained in this window.
