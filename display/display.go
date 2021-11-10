@@ -180,8 +180,18 @@ func processEvent(vp *viewPort, ev *event.Event) (res bool) {
 }
 
 func viewPortText(vp *viewPort, text string) bool {
+
 	vp.buff.InsertMarkup(vp.buff.GetEndIter(), text)
+
+	/* TODO insert images?
+	img, _ := gtk.ImageNewFromFile(cfg.GtkResourcesDir + "/img.png")
+	ch, _ := vp.buff.CreateChildAnchor(vp.buff.GetEndIter())
+	vp.view.AddChildAtAnchor(img, ch)
+	img.Show()
+	*/
+
 	vp.view.ScrollToIter(vp.buff.GetEndIter(), 0.0, false, 0.0, 0.0)
+
 	return false
 }
 
