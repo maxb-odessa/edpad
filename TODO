@@ -1,2 +1,3 @@
- - integrate XDO: use gtk button name (.buttonId is widget id) as key name (#buttonName is widget name)
+- pages (3) for star system, planets. etc. Switch by joystick 'mode' wheel
+- extreme params for planets
 

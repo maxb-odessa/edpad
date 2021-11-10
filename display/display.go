@@ -20,25 +20,24 @@ type Data struct {
 }
 
 type prop struct {
-	pos   int
-	glue  bool
-	clear bool
+	pos     int
+	glue    bool
+	clear   bool
+	persist bool
 }
 
 var props = map[event.Type]prop{
-	event.START_JUMP:   prop{pos: 0, glue: false, clear: true},
-	event.FSD_TARGET:   prop{pos: 0, glue: false, clear: false},
-	event.SYSTEM_NAME:  prop{pos: 1, glue: false, clear: false},
-	event.BODY_SIGNALS: prop{pos: 2, glue: false, clear: false},
-	event.MAIN_STAR:    prop{pos: 3, glue: false, clear: false},
-	event.SEC_STAR:     prop{pos: 4, glue: true, clear: false},
-	event.PLANET:       prop{pos: 5, glue: true, clear: false},
-	event.FSS_SIGNALS:  prop{pos: 6, glue: true, clear: false},
+	event.FSD_TARGET:   prop{pos: 0, glue: false, clear: false, persist: true},
+	event.START_JUMP:   prop{pos: 1, glue: false, clear: true, persist: true},
+	event.SYSTEM_NAME:  prop{pos: 1, glue: false, clear: false, persist: false},
+	event.BODY_SIGNALS: prop{pos: 2, glue: false, clear: false, persist: false},
+	event.MAIN_STAR:    prop{pos: 3, glue: false, clear: false, persist: false},
+	event.SEC_STAR:     prop{pos: 4, glue: true, clear: false, persist: false},
+	event.PLANET:       prop{pos: 5, glue: true, clear: false, persist: false},
+	event.FSS_SIGNALS:  prop{pos: 6, glue: true, clear: false, persist: false},
 }
 
-const textBufLen = 8
-
-var textBuf []string
+var textBuf [8]string
 
 type viewPort struct {
 	view *gtk.TextView
@@ -49,8 +48,6 @@ type viewPort struct {
 func Start(eventCh chan *event.Event) error {
 
 	runtime.LockOSThread()
-
-	textBuf = make([]string, textBufLen)
 
 	gtk.Init(nil)
 
@@ -158,9 +155,13 @@ func processEvent(vp *viewPort, ev *event.Event) (res bool) {
 	viewPortClear(vp)
 
 	if evProp.clear {
-		textBuf = nil
-		textBuf = make([]string, textBufLen)
-		return
+
+		for _, pr := range props {
+			if !pr.persist {
+				textBuf[pr.pos] = ""
+			}
+		}
+
 	}
 
 	if evProp.glue {

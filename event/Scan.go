@@ -130,32 +130,61 @@ func isMainStar(e Entry) bool {
 
 func scanStar(e Entry) (Type, string, error) {
 
-	var stype Type
-	var sname string
+	var isMain Type
+	var prefix string
 	var discovered string
 
 	if isMainStar(e) {
-		stype = MAIN_STAR
-		sname = `<span weight="bold" foreground="yellow">Star</span>`
+		isMain = MAIN_STAR
+		prefix = "Star: "
 	} else {
-		stype = SEC_STAR
-		sname = `<span foreground="red">Star</span>`
+		isMain = SEC_STAR
+		prefix = "   +: "
 	}
 
-	if stype == MAIN_STAR && e["WasDiscovered"].(bool) {
+	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
 		discovered = `<span foreground="green"><i> Discovered!</i></span>`
 	}
 
-	star := fmt.Sprintf("%s: %s%.0f, m:%.2f, r:%.2f, t:%.0f%s",
-		sname,
-		e["StarType"].(string),
-		e["Subclass"].(float64),
+	fgColor := `#FFFFFF`
+	sType := e["StarType"].(string)
+	sClass := fmt.Sprintf("%.0f", e["Subclass"].(float64))
+
+	if sType[0:1] == "O" {
+		fgColor = `#EEEEEE`
+	} else if sType[0:1] == "B" {
+		fgColor = `#EEEE80`
+	} else if sType[0:1] == "A" {
+		fgColor = `#EEEEAA`
+	} else if sType[0:1] == "F" {
+		fgColor = `#EEEECC`
+	} else if sType[0:1] == "G" {
+		fgColor = `#EEEE20`
+	} else if sType[0:1] == "K" {
+		fgColor = `#EEAA20`
+	} else if sType[0:1] == "M" {
+		fgColor = `#EE8080`
+	} else if sType[0:1] == "N" {
+		fgColor = `#2020EE`
+	} else if sType[0:1] == "D" {
+		fgColor = `#FFFFFF`
+	} else if sType[0:1] == "T" || sType[0:1] == "Y" || sType[0:1] == "L" {
+		fgColor = `#AA3030`
+	} else if sType[0:1] == "H" {
+		fgColor = `#505050`
+	}
+
+	starType := `<span size="larger" fgcolor="` + fgColor + `">` + sType + sClass + `</span>`
+
+	star := fmt.Sprintf("%s: %s, m:%.2f, r:%.2f, t:%.0f%s",
+		prefix,
+		starType,
 		e["StellarMass"].(float64),
 		e["Radius"].(float64)/SOLAR_RADIUS,
 		e["SurfaceTemperature"].(float64),
 		discovered)
 
-	return stype, star, nil
+	return isMain, star, nil
 }
 
 func scanPlanet(entry Entry) (Type, string, error) {
