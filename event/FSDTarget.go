@@ -16,7 +16,7 @@ type FSDTarget struct {
 */
 
 func FSDTarget(entry Entry) (*Event, error) {
-	s := fmt.Sprintf(`<span foreground="blue"><i>Jumping to: %s (%s), left: %.0f</i></span>`,
+	s := fmt.Sprintf(`<span foreground="#9090FF"><i>Next jump: %s (%s), left: %.0f</i></span>`,
 		entry["Name"].(string),
 		entry["StarClass"].(string),
 		entry["RemainingJumpsInRoute"].(float64))

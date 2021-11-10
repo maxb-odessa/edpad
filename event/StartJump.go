@@ -21,8 +21,7 @@ func StartJump(e Entry) (*Event, error) {
 		return nil, nil
 	}
 
-	s := fmt.Sprintf("________________________________"+
-		"Target: %s (%s)\n", e["StarSystem"].(string), e["StarClass"].(string))
+	s := fmt.Sprintf("Jump Target: %s (%s)", e["StarSystem"].(string), e["StarClass"].(string))
 
 	return &Event{Type: START_JUMP, Text: s}, nil
 }

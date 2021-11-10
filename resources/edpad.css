@@ -1,5 +1,5 @@
 window {
-    background-image: url('/home/user/.local/share/edpad/edpad.png');
+    background-image: url('/home/vesemir/.local/share/edpad/edpad.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -43,15 +43,15 @@ button#1,
 button#2,
 button#3,
 button#4 {
-    border-color: blue;
-    color: blue;
+    border-color: yellow;
+    color: yellow;
 }
 
 button#1:hover:active,
 button#2:hover:active,
 button#3:hover:active,
 button#4:hover:active {
-    background: blue;
+    background: yellow;
     color: black;
 }
 
