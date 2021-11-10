@@ -40,6 +40,7 @@
                 <property name="cursor-visible">False</property>
                 <property name="buffer">textbuffer</property>
                 <property name="monospace">True</property>
+                <property name="editable">False</property>
               </object>
             </child>
           </object>
