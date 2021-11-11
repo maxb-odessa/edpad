@@ -105,8 +105,12 @@ func Scan(entry Entry) (*Event, error) {
 
 	// Planet scan
 	if _, ok := entry["PlanetClass"]; ok {
-		t, p, err := scanPlanet(entry)
-		return &Event{Type: t, Text: p}, err
+		p, err := scanPlanet(entry)
+		// no text is ok - skip this event
+		if p == "" {
+			return nil, nil
+		}
+		return &Event{Type: PLANET, Text: p}, err
 	}
 
 	// huh?
@@ -114,6 +118,7 @@ func Scan(entry Entry) (*Event, error) {
 }
 
 const SOLAR_RADIUS = 696340000.0
+const EARTH_RADIUS = 6371.0
 
 // must be set by FSDJump()
 var mainStarName string
@@ -143,7 +148,7 @@ func scanStar(e Entry) (Type, string, error) {
 	}
 
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
-		discovered = `<span foreground="green"><i> Discovered!</i></span>`
+		discovered = `<span size="smaller" fgcolor="yellow"><i> Discovered!</i></span>`
 	}
 
 	fgColor := `#FFFFFF`
@@ -187,8 +192,45 @@ func scanStar(e Entry) (Type, string, error) {
 	return isMain, star, nil
 }
 
-// TODO
-func scanPlanet(entry Entry) (Type, string, error) {
+func scanPlanet(e Entry) (string, error) {
 
-	return PLANET, "", nil
+	pClass, ok := e["PlanetClass"].(string)
+	if !ok {
+		return "", nil
+	}
+
+	pColor := "#808080"
+	switch pClass {
+	case "Earthlike body":
+		pColor = "#00FF30"
+	case "Water world":
+		pColor = "#0070FF"
+	case "Ammonia world":
+		pColor = "#FF3000"
+	default:
+		return "", nil
+	}
+
+	ringed := ""
+	if _, ok := e["Rings"]; ok {
+		ringed = " <i>(ringed)</i>"
+	}
+
+	discovered := ""
+	if e["WasDiscovered"].(bool) {
+		discovered = ` <span size="smaller" fgcolor="yellow"><i>Discovered!</i></span>`
+	}
+
+	pMass := e["MassEM"].(float64)
+	pRad := e["Radius"].(float64) / EARTH_RADIUS / 1000.0
+
+	planet := fmt.Sprintf(`Planet: <span fgcolor="%s">%-14s</span> m:%.2f, r:%.2f%s%s`,
+		pColor,
+		pClass,
+		pMass,
+		pRad,
+		ringed,
+		discovered)
+
+	return planet, nil
 }
