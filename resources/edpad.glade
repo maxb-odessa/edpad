@@ -18,7 +18,7 @@
         <child>
           <object class="GtkScrolledWindow" id="scroll">
             <property name="name">scroll</property>
-            <property name="width-request">750</property>
+            <property name="width-request">800</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="hexpand">True</property>

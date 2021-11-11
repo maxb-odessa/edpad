@@ -136,10 +136,10 @@ func scanStar(e Entry) (Type, string, error) {
 
 	if isMainStar(e) {
 		isMain = MAIN_STAR
-		prefix = "Star: "
+		prefix = "Star:"
 	} else {
 		isMain = SEC_STAR
-		prefix = "   +: "
+		prefix = "   +:"
 	}
 
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
@@ -176,7 +176,7 @@ func scanStar(e Entry) (Type, string, error) {
 
 	starType := `<span size="larger" fgcolor="` + fgColor + `">` + sType + sClass + `</span>`
 
-	star := fmt.Sprintf("%s: %s, m:%.2f, r:%.2f, t:%.0f%s",
+	star := fmt.Sprintf("%s %s, m:%.2f, r:%.2f, t:%.0f%s",
 		prefix,
 		starType,
 		e["StellarMass"].(float64),
@@ -187,6 +187,7 @@ func scanStar(e Entry) (Type, string, error) {
 	return isMain, star, nil
 }
 
+// TODO
 func scanPlanet(entry Entry) (Type, string, error) {
 
 	return PLANET, "", nil

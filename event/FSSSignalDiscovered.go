@@ -29,7 +29,7 @@ func FSSSignalDiscovered(e Entry) (*Event, error) {
 		sigName = sn
 	}
 
-	s := fmt.Sprintf(`<span foreground="cyanw">FSS signal: <i><b>%s</b></i></span>`, sigName)
+	s := fmt.Sprintf(`<span foreground="green">FSS signal: <i><b>%s</b></i></span>`, sigName)
 
 	return &Event{Type: FSS_SIGNALS, Text: s}, nil
 }

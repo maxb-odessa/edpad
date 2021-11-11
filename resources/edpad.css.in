@@ -100,7 +100,7 @@ scrolledwindow {
 }
 
 textview {
-    font-size: 28px;
+    font-size: 27px;
 }
 textview text {
     color: #FFFFFF;
