@@ -7,6 +7,12 @@ import (
 
 func parseJournal(entry event.Entry) *event.Event {
 
+	defer func() {
+		if r := recover(); r != nil {
+			log.Warn("parse journal failed, recoverd in %v", r)
+		}
+	}()
+
 	log.Debug("got Journal entry: %+v\n", entry)
 
 	evname, ok := entry["event"]

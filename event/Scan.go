@@ -99,26 +99,31 @@ func Scan(entry Entry) (*Event, error) {
 
 	// Star scan
 	if _, ok := entry["StarType"]; ok {
-		t, s, err := scanStar(entry)
-		return &Event{Type: t, Text: s}, err
+		t, s := scanStar(entry)
+		return &Event{Type: t, Text: s}, nil
 	}
 
 	// Planet scan
 	if _, ok := entry["PlanetClass"]; ok {
-		p, err := scanPlanet(entry)
+		t, p := scanPlanet(entry)
 		// no text is ok - skip this event
 		if p == "" {
 			return nil, nil
 		}
-		return &Event{Type: PLANET, Text: p}, err
+		return &Event{Type: t, Text: p}, nil
 	}
 
 	// huh?
 	return nil, fmt.Errorf("unknown body type scan")
 }
 
+// in meters
 const SOLAR_RADIUS = 696340000.0
-const EARTH_RADIUS = 6371.0
+const EARTH_RADIUS = 6371.0 * 1000.0
+const LIGHT_SECOND = 299792.0 * 1000.
+
+// in light seconds
+const MIN_RING_RAD = 10.0
 
 // must be set by FSDJump()
 var mainStarName string
@@ -133,11 +138,10 @@ func isMainStar(e Entry) bool {
 	return false
 }
 
-func scanStar(e Entry) (Type, string, error) {
+func scanStar(e Entry) (t Type, star string) {
 
 	var isMain Type
 	var prefix string
-	var discovered string
 
 	if isMainStar(e) {
 		isMain = MAIN_STAR
@@ -147,9 +151,11 @@ func scanStar(e Entry) (Type, string, error) {
 		prefix = "   +:"
 	}
 
-	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
-		discovered = `<span size="smaller" fgcolor="yellow"><i> Discovered!</i></span>`
-	}
+	defer func() {
+		if isMain == MAIN_STAR && e["WasDiscovered"].(bool) && star != "" {
+			star += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+		}
+	}()
 
 	fgColor := `#FFFFFF`
 	sType := e["StarType"].(string)
@@ -181,23 +187,32 @@ func scanStar(e Entry) (Type, string, error) {
 
 	starType := `<span size="larger" fgcolor="` + fgColor + `">` + sType + sClass + `</span>`
 
-	star := fmt.Sprintf("%s %s, m:%.2f, r:%.2f, t:%.0f%s",
+	star = fmt.Sprintf("%s %s, solM:%.2f, solR:%.2f, tK:%.0f",
 		prefix,
 		starType,
 		e["StellarMass"].(float64),
 		e["Radius"].(float64)/SOLAR_RADIUS,
-		e["SurfaceTemperature"].(float64),
-		discovered)
+		e["SurfaceTemperature"].(float64))
 
-	return isMain, star, nil
+	return isMain, star
 }
 
-func scanPlanet(e Entry) (string, error) {
+func scanPlanet(e Entry) (Type, string) {
 
-	pClass, ok := e["PlanetClass"].(string)
-	if !ok {
-		return "", nil
+	if p := rarePlanet(e); p != "" {
+		return PLANET, p
 	}
+
+	if p := wideRing(e); p != "" {
+		return RING, p
+	}
+
+	return PLANET, ""
+}
+
+func rarePlanet(e Entry) string {
+
+	pClass := e["PlanetClass"].(string)
 
 	pColor := "#808080"
 	switch pClass {
@@ -208,7 +223,7 @@ func scanPlanet(e Entry) (string, error) {
 	case "Ammonia world":
 		pColor = "#FF3000"
 	default:
-		return "", nil
+		return "" // not interested in other planets
 	}
 
 	ringed := ""
@@ -216,21 +231,52 @@ func scanPlanet(e Entry) (string, error) {
 		ringed = " <i>(ringed)</i>"
 	}
 
-	discovered := ""
-	if e["WasDiscovered"].(bool) {
-		discovered = ` <span size="smaller" fgcolor="yellow"><i>Discovered!</i></span>`
-	}
-
 	pMass := e["MassEM"].(float64)
-	pRad := e["Radius"].(float64) / EARTH_RADIUS / 1000.0
+	pRad := e["Radius"].(float64) / EARTH_RADIUS
 
-	planet := fmt.Sprintf(`Planet: <span fgcolor="%s">%-14s</span> m:%.2f, r:%.2f%s%s`,
+	planet := fmt.Sprintf(`Body: <span fgcolor="%s">%-14s</span> eM:%.2f, eR:%.2f%s`,
 		pColor,
 		pClass,
 		pMass,
 		pRad,
-		ringed,
-		discovered)
+		ringed)
 
-	return planet, nil
+	if e["WasDiscovered"].(bool) {
+		planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+	}
+
+	return planet
+}
+
+func wideRing(e Entry) string {
+
+	rings, ok := e["Rings"].([]interface{})
+	if !ok {
+		return ""
+	}
+
+	maxOutRad := 0.0
+	rNum := 0
+
+	for _, r := range rings {
+
+		rNum++
+
+		ring := r.(map[string]interface{})
+		outRad := ring["OuterRad"].(float64)
+
+		if maxOutRad < outRad {
+			maxOutRad = outRad
+		}
+
+	}
+
+	if maxOutRad >= MIN_RING_RAD {
+		return fmt.Sprintf(`Ring: <span fgcolor="gray">bodyID:%.0f, rNum:%d, lsRad:%.2f</span>`,
+			e["BodyID"].(float64),
+			rNum,
+			maxOutRad/LIGHT_SECOND)
+	}
+
+	return ""
 }
