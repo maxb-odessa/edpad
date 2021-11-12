@@ -29,6 +29,8 @@ func Start(parserCh chan string, eventCh chan *event.Event) error {
 	return nil
 }
 
+var prevEDtext string
+
 // ED journal entries have at least 'timestamp' and 'event' entries
 // others (i.e. joystick events) - don't
 func parse(text string) *event.Event {
@@ -47,7 +49,14 @@ func parse(text string) *event.Event {
 	// check is it ED or Joystick event
 	if _, ok := entry["event"]; ok {
 		if _, ok := entry["timestamp"]; ok {
-			return parseJournal(entry)
+			// anti-dup check (ED sometimes writes duplicate journal lines)
+			if text == prevEDtext {
+				log.Warn("skipping duplicate ED Journal line: %s\n", text)
+				return nil
+			} else {
+				prevEDtext = text
+				return parseJournal(entry)
+			}
 		}
 	}
 
