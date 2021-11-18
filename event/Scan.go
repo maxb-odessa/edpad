@@ -218,12 +218,12 @@ func rarePlanet(e Entry) string {
 	switch e["PlanetClass"].(string) {
 	case "Earthlike body":
 		pColor = "#00FF30"
-		pClass = "ELW"
+		pClass = `*ELW*`
 	case "Water world":
-		pClass = "WW"
-		pColor = "#0070FF"
+		pClass = `*WW*`
+		pColor = "#0030FF"
 	case "Ammonia world":
-		pClass = "AW"
+		pClass = `*AW*`
 		pColor = "#FF3000"
 	default:
 		return "" // not interested in other planets

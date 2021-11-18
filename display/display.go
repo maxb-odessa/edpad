@@ -34,8 +34,7 @@ var props = map[event.Type]prop{
 	event.MAIN_STAR:    prop{pos: 3, glue: false, clear: false, persist: false},
 	event.SEC_STAR:     prop{pos: 4, glue: true, clear: false, persist: false},
 	event.PLANET:       prop{pos: 5, glue: true, clear: false, persist: false},
-	event.RING:         prop{pos: 6, glue: true, clear: false, persist: false},
-	event.FSS_SIGNALS:  prop{pos: 7, glue: true, clear: false, persist: false},
+	event.FSS_SIGNALS:  prop{pos: 6, glue: true, clear: false, persist: false},
 }
 
 var textBuf [16]string
