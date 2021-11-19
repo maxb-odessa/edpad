@@ -3,6 +3,7 @@ package event
 import (
 	"edpad/log"
 	"fmt"
+	"strings"
 )
 
 /* PLANET SCAN
@@ -147,7 +148,7 @@ func scanStar(e Entry) (Type, string) {
 		prefix = "Star"
 	} else {
 		isMain = SEC_STAR
-		prefix = "   +"
+		prefix = "   *"
 	}
 
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
@@ -199,15 +200,17 @@ func scanStar(e Entry) (Type, string) {
 
 func scanPlanet(e Entry) (Type, string) {
 
+	var planets []string
+
 	if p := rarePlanet(e); p != "" {
-		return PLANET, p
+		planets = append(planets, p)
 	}
 
 	if p := wideRing(e); p != "" {
-		return RING, p
+		planets = append(planets, p)
 	}
 
-	return PLANET, ""
+	return PLANET, strings.Join(planets[:], "\n")
 }
 
 func rarePlanet(e Entry) string {
@@ -217,33 +220,31 @@ func rarePlanet(e Entry) string {
 
 	switch e["PlanetClass"].(string) {
 	case "Earthlike body":
-		pColor = "#00FF30"
-		pClass = `*ELW*`
+		pColor = "#30FF30"
+		pClass = `EarthLike`
 	case "Water world":
-		pClass = `*WW*`
-		pColor = "#0030FF"
+		pClass = `Water`
+		pColor = "#3030FF"
 	case "Ammonia world":
-		pClass = `*AW*`
-		pColor = "#FF3000"
+		pClass = `Ammonia`
+		pColor = "#FF3030"
 	default:
 		return "" // not interested in other planets
-	}
-
-	ringed := ""
-	if _, ok := e["Rings"]; ok {
-		ringed = " <i>(ringed)</i>"
 	}
 
 	pMass := e["MassEM"].(float64)
 	pRad := e["Radius"].(float64) / EARTH_RADIUS
 
-	planet := fmt.Sprintf(`Body: id:%.0f, <span fgcolor="%s">%3s</span>, eM:%.2f, eR:%.2f%s`,
+	planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="%s">%s</span>, eM:%.2f, eR:%.2f`,
 		e["BodyID"].(float64),
 		pColor,
 		pClass,
 		pMass,
-		pRad,
-		ringed)
+		pRad)
+
+	if _, ok := e["Rings"]; ok {
+		planet += ` <span size="smaller" fgcolor="` + pColor + `"><b>(R)</b></span>`
+	}
 
 	if e["WasDiscovered"].(bool) {
 		planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
@@ -275,12 +276,18 @@ func wideRing(e Entry) string {
 
 	}
 
-	if maxOutRad >= MIN_RING_RAD {
-		return fmt.Sprintf(`Ring: <span fgcolor="gray">body:%.0f, nR:%d, lsR:%.2f</span>`,
-			e["BodyID"].(float64),
-			rNum,
-			maxOutRad/LIGHT_SECOND)
+	if maxOutRad < MIN_RING_RAD {
+		return ""
 	}
 
-	return ""
+	planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="gray">Wide Ring</span>, nR:%d, lsR:%.2f`,
+		e["BodyID"].(float64),
+		rNum,
+		maxOutRad/LIGHT_SECOND)
+
+	if e["WasDiscovered"].(bool) {
+		planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+	}
+
+	return planet
 }
