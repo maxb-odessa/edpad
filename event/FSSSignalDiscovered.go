@@ -29,7 +29,7 @@ func FSSSignalDiscovered(e Entry) (*Event, error) {
 		sigName = sn
 	}
 
-	sig := fmt.Sprintf(`Signal: <span fgcolor="#7070FF">%s</span>`, sigName)
+	sig := fmt.Sprintf(`Signal: <span fgcolor="#FFA050">%s</span>`, sigName)
 
 	return &Event{Type: FSS_SIGNALS, Text: sig}, nil
 }

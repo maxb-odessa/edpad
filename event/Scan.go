@@ -119,10 +119,12 @@ func Scan(entry Entry) (*Event, error) {
 }
 
 // in meters
-const SOLAR_RADIUS = 696340000.0
-const EARTH_RADIUS = 6371.0 * 1000.0
-const LIGHT_SECOND = 299792.0 * 1000.
-const MIN_RING_RAD = 10.0 * LIGHT_SECOND
+const (
+	SOLAR_RADIUS     = 696340000.0
+	EARTH_RADIUS     = 6371.0 * 1000.0
+	LIGHT_SECOND     = 299792.0 * 1000.
+	MIN_RING_OUT_RAD = 10.0 * LIGHT_SECOND
+)
 
 // must be set by FSDJump()
 var mainStarName string
@@ -187,13 +189,19 @@ func scanStar(e Entry) (Type, string) {
 
 	starType := `<span size="larger" fgcolor="` + fgColor + `">` + sType + sClass + `</span>`
 
-	star := fmt.Sprintf("%s: %s, sM:%.2f, sR:%.2f, tK:%.0f%s",
+	var rings string
+	nrs, ror, yes := getWideRing(e)
+	if yes {
+		rings = fmt.Sprintf(` (nR:%d lsR:%.2f)`, nrs, ror/LIGHT_SECOND)
+	}
+	star := fmt.Sprintf("%s: %s, <i>sM:%.2f sR:%.2f tK:%.0f%s%s</i>",
 		prefix,
 		starType,
 		e["StellarMass"].(float64),
 		e["Radius"].(float64)/SOLAR_RADIUS,
 		e["SurfaceTemperature"].(float64),
-		discovered)
+		discovered,
+		rings)
 
 	return isMain, star
 }
@@ -220,14 +228,14 @@ func rarePlanet(e Entry) string {
 
 	switch e["PlanetClass"].(string) {
 	case "Earthlike body":
-		pColor = "#30FF30"
+		pColor = "#60FF60"
 		pClass = `EarthLike`
 	case "Water world":
 		pClass = `Water`
-		pColor = "#3030FF"
+		pColor = "#6060FF"
 	case "Ammonia world":
 		pClass = `Ammonia`
-		pColor = "#FF3030"
+		pColor = "#FF6060"
 	default:
 		return "" // not interested in other planets
 	}
@@ -235,7 +243,7 @@ func rarePlanet(e Entry) string {
 	pMass := e["MassEM"].(float64)
 	pRad := e["Radius"].(float64) / EARTH_RADIUS
 
-	planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="%s">%s</span>, eM:%.2f, eR:%.2f`,
+	planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="%s">%s</span>, <i>eM:%.2f, eR:%.2f</i>`,
 		e["BodyID"].(float64),
 		pColor,
 		pClass,
@@ -253,22 +261,21 @@ func rarePlanet(e Entry) string {
 	return planet
 }
 
-func wideRing(e Entry) string {
+func getWideRing(e Entry) (nRings int, outRad float64, yes bool) {
 
 	rings, ok := e["Rings"].([]interface{})
 	if !ok {
-		return ""
+		return
 	}
 
 	maxOutRad := 0.0
-	rNum := 0
 
 	for _, r := range rings {
 
-		rNum++
+		nRings++
 
 		ring := r.(map[string]interface{})
-		outRad := ring["OuterRad"].(float64)
+		outRad = ring["OuterRad"].(float64)
 
 		if maxOutRad < outRad {
 			maxOutRad = outRad
@@ -276,18 +283,29 @@ func wideRing(e Entry) string {
 
 	}
 
-	if maxOutRad < MIN_RING_RAD {
-		return ""
+	if maxOutRad < MIN_RING_OUT_RAD {
+		return
 	}
 
-	planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="gray">Wide Ring</span>, nR:%d, lsR:%.2f`,
-		e["BodyID"].(float64),
-		rNum,
-		maxOutRad/LIGHT_SECOND)
+	yes = true
+	return
+}
 
-	if e["WasDiscovered"].(bool) {
-		planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+func wideRing(e Entry) string {
+
+	if nrs, or, yes := getWideRing(e); yes {
+
+		planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="gray">Wide Ring</span>, nR:%d, lsR:%.2f`,
+			e["BodyID"].(float64),
+			nrs,
+			or/LIGHT_SECOND)
+
+		if e["WasDiscovered"].(bool) {
+			planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+		}
+
+		return planet
 	}
 
-	return planet
+	return ""
 }

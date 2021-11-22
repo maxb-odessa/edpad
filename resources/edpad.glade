@@ -88,7 +88,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="1">
-                    <property name="label" translatable="yes">[1]</property>
+                    <property name="label" translatable="yes">&#xD;[1]&#xD;</property>
                     <property name="name">1</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>

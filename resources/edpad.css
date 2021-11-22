@@ -1,5 +1,5 @@
 window {
-    background-image: url('/home/vesemir/.local/share/edpad/edpad.png');
+    background-image: url('/home/maxb/.local/share/edpad/edpad.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -100,7 +100,7 @@ scrolledwindow {
 }
 
 textview {
-    font-size: 26px;
+    font-size: 27px;
 }
 textview text {
     color: #FFFFFF;
