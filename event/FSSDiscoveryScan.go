@@ -17,7 +17,7 @@ type FSSDiscoveryScan struct {
 */
 
 func FSSDiscoveryScan(e Entry) (*Event, error) {
-	s := fmt.Sprintf(`<span foreground="cyan">Body signals: %0.f(%.0f)</span>`,
+	s := fmt.Sprintf(`<span foreground="cyan">Body signals:%0.f, other:%.0f</span>`,
 		e["BodyCount"].(float64),
 		e["NonBodyCount"].(float64))
 	return &Event{Type: BODY_SIGNALS, Text: s}, nil

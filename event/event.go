@@ -33,3 +33,42 @@ var Handlers = map[string]Handler{
 	"SAASignalsFound":     SAASignalsFound,
 	"Scan":                Scan,
 }
+
+func starColor(class string) (fgColor string) {
+
+	c := class[0:1]
+
+	switch c {
+	case "O":
+		fgColor = `#EEEEEE`
+	case "B":
+		fgColor = `#EEEE80`
+	case "A":
+		fgColor = `#EEEEAA`
+	case "F":
+		fgColor = `#EEEECC`
+	case "G":
+		fgColor = `#EEEE20`
+	case "K":
+		fgColor = `#EEAA20`
+	case "M":
+		fgColor = `#EE8080`
+	case "N":
+		fgColor = `#2020EE`
+	case "D":
+		fgColor = `#FFFFFF`
+	case "T", "Y", "L":
+		fgColor = `#AA3030`
+	case "H":
+		fgColor = `#505050`
+	case "W":
+		fgColor = `#FFFFFF`
+	default:
+		fgColor = `#E0E0E0`
+	}
+
+	return
+}
+
+// must be set by FSDJump() and read by Scan()
+var mainStarName string

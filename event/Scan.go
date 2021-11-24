@@ -126,9 +126,6 @@ const (
 	MIN_RING_OUT_RAD = 10.0 * LIGHT_SECOND
 )
 
-// must be set by FSDJump()
-var mainStarName string
-
 func isMainStar(e Entry) bool {
 
 	log.Debug("main star:%s saved main star:%s\n", e["BodyName"].(string), mainStarName)
@@ -157,37 +154,12 @@ func scanStar(e Entry) (Type, string) {
 		discovered = ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
 	}
 
-	fgColor := `#FFFFFF`
 	sType := e["StarType"].(string)
 	sClass := fmt.Sprintf("%.0f", e["Subclass"].(float64))
 
-	if sType[0:1] == "O" {
-		fgColor = `#EEEEEE`
-	} else if sType[0:1] == "B" {
-		fgColor = `#EEEE80`
-	} else if sType[0:1] == "A" { // A, AeBe
-		fgColor = `#EEEEAA`
-	} else if sType[0:1] == "F" {
-		fgColor = `#EEEECC`
-	} else if sType[0:1] == "G" {
-		fgColor = `#EEEE20`
-	} else if sType[0:1] == "K" {
-		fgColor = `#EEAA20`
-	} else if sType[0:1] == "M" {
-		fgColor = `#EE8080`
-	} else if sType[0:1] == "N" {
-		fgColor = `#2020EE`
-	} else if sType[0:1] == "D" { // D, DA, DB ...
-		fgColor = `#FFFFFF`
-	} else if sType[0:1] == "T" || sType[0:1] == "Y" || sType[0:1] == "L" { // T, TTS, L, Y
-		fgColor = `#AA3030`
-	} else if sType[0:1] == "H" { // black hole
-		fgColor = `#505050`
-	} else if sType[0:1] == "W" { // WO, WC ...
-		fgColor = `#FFFFFF`
-	}
+	fgColor := starColor(sType)
 
-	starType := `<span size="larger" fgcolor="` + fgColor + `">` + sType + sClass + `</span>`
+	starType := `<span size="larger" fgcolor="` + fgColor + `"><b>` + sType + sClass + `</b></span>`
 
 	var rings string
 	nrs, ror, yes := getWideRing(e)
