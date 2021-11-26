@@ -3,11 +3,14 @@ package parser
 import (
 	"encoding/json"
 
+	"edpad/edsm"
 	"edpad/event"
 	"edpad/log"
 )
 
 func Start(parserCh chan string, eventCh chan *event.Event) error {
+
+	edsmConn := edsm.Init()
 
 	go func() {
 
@@ -17,7 +20,7 @@ func Start(parserCh chan string, eventCh chan *event.Event) error {
 				if !ok {
 					return
 				}
-				if ev := parse(text); ev != nil {
+				if ev := parse(edsmConn, text); ev != nil {
 					eventCh <- ev
 				}
 			}
@@ -33,7 +36,7 @@ var prevEDtext string
 
 // ED journal entries have at least 'timestamp' and 'event' entries
 // others (i.e. joystick events) - don't
-func parse(text string) *event.Event {
+func parse(edsmConn *edsm.EDSM, text string) *event.Event {
 
 	log.Debug("parser: %s\n", text)
 
@@ -54,6 +57,7 @@ func parse(text string) *event.Event {
 				log.Warn("skipping duplicate ED Journal line: %s\n", text)
 				return nil
 			} else {
+				edsmConn.Send(entry["event"].(string), text)
 				prevEDtext = text
 				return parseJournal(entry)
 			}
