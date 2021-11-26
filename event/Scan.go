@@ -151,7 +151,7 @@ func scanStar(e Entry) (Type, string) {
 	}
 
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
-		discovered = ` <span size="70%" fgcolor="yellow"><b>(!)</b></span>`
+		discovered = ` <span size="small" fgcolor="yellow"><b>(!)</b></span>`
 	}
 
 	sType := e["StarType"].(string)
@@ -166,7 +166,7 @@ func scanStar(e Entry) (Type, string) {
 	if yes {
 		rings = fmt.Sprintf(` (nR:%d lsR:%.2f)`, nrs, ror/LIGHT_SECOND)
 	}
-	star := fmt.Sprintf(`%s: %s, <span size="70%%"><i>sM:%.2f sR:%.2f tK:%.0f%s%s</i></span>`,
+	star := fmt.Sprintf(`%s: %s, <span size="small"><i>sM:%.2f sR:%.2f tK:%.0f%s%s</i></span>`,
 		prefix,
 		starType,
 		e["StellarMass"].(float64),
@@ -217,7 +217,7 @@ func rarePlanet(e Entry) string {
 	pMass := e["MassEM"].(float64)
 	pRad := e["Radius"].(float64) / EARTH_RADIUS
 
-	planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="%s">%s</span>, <i>eM:%.2f, eR:%.2f</i>`,
+	planet := fmt.Sprintf(`Body: id:%.0f, <span fgcolor="%s">%s</span>, <span size="small"><i>eM:%.2f, eR:%.2f</i></span>`,
 		e["BodyID"].(float64),
 		pColor,
 		pClass,
@@ -225,11 +225,11 @@ func rarePlanet(e Entry) string {
 		pRad)
 
 	if _, ok := e["Rings"]; ok {
-		planet += ` <span size="70%%" fgcolor="` + pColor + `"><b>(ringed)</b></span>`
+		planet += ` <span size="small" fgcolor="` + pColor + `"><b>(ringed)</b></span>`
 	}
 
 	if e["WasDiscovered"].(bool) {
-		planet += ` <span size="70%%" fgcolor="yellow"><b>(!)</b></span>`
+		planet += ` <span size="small" fgcolor="yellow"><b>(!)</b></span>`
 	}
 
 	return planet
@@ -269,13 +269,13 @@ func wideRing(e Entry) string {
 
 	if nrs, or, yes := getWideRing(e); yes {
 
-		planet := fmt.Sprintf(`Body: id:%2.0f, <span fgcolor="gray">Wide Ring</span>, nR:%d, lsR:%.2f`,
+		planet := fmt.Sprintf(`Body: id:%.0f, <span fgcolor="gray">Wide Ring</span>, <span size="small">nR:%d, lsR:%.2f</span>`,
 			e["BodyID"].(float64),
 			nrs,
 			or/LIGHT_SECOND)
 
 		if e["WasDiscovered"].(bool) {
-			planet += ` <span size="70%%" fgcolor="yellow"><b>(!)</b></span>`
+			planet += ` <span size="small" fgcolor="yellow"><b>(!)</b></span>`
 		}
 
 		return planet
