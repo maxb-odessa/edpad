@@ -31,7 +31,7 @@ func FSSSignalDiscovered(e Entry) (*Event, error) {
 
 	isStation := ""
 	if isSt, ok := e["IsStation"].(bool); ok && isSt {
-		isStation = "(station)"
+		isStation = " (station)"
 	}
 
 	sig := fmt.Sprintf(`Signal: <span fgcolor="#FFA050">%s</span>%s`, sigName, isStation)

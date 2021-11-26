@@ -151,7 +151,7 @@ func scanStar(e Entry) (Type, string) {
 	}
 
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
-		discovered = ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+		discovered = ` <span size="70%" fgcolor="yellow"><b>(!)</b></span>`
 	}
 
 	sType := e["StarType"].(string)
@@ -166,7 +166,7 @@ func scanStar(e Entry) (Type, string) {
 	if yes {
 		rings = fmt.Sprintf(` (nR:%d lsR:%.2f)`, nrs, ror/LIGHT_SECOND)
 	}
-	star := fmt.Sprintf("%s: %s, <i>sM:%.2f sR:%.2f tK:%.0f%s%s</i>",
+	star := fmt.Sprintf(`%s: %s, <span size="70%%"><i>sM:%.2f sR:%.2f tK:%.0f%s%s</i></span>`,
 		prefix,
 		starType,
 		e["StellarMass"].(float64),
@@ -174,6 +174,8 @@ func scanStar(e Entry) (Type, string) {
 		e["SurfaceTemperature"].(float64),
 		discovered,
 		rings)
+
+	log.Debug("Star: %s\n", star)
 
 	return isMain, star
 }
@@ -223,11 +225,11 @@ func rarePlanet(e Entry) string {
 		pRad)
 
 	if _, ok := e["Rings"]; ok {
-		planet += ` <span size="smaller" fgcolor="` + pColor + `"><b>(R)</b></span>`
+		planet += ` <span size="70%%" fgcolor="` + pColor + `"><b>(ringed)</b></span>`
 	}
 
 	if e["WasDiscovered"].(bool) {
-		planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+		planet += ` <span size="70%%" fgcolor="yellow"><b>(!)</b></span>`
 	}
 
 	return planet
@@ -273,7 +275,7 @@ func wideRing(e Entry) string {
 			or/LIGHT_SECOND)
 
 		if e["WasDiscovered"].(bool) {
-			planet += ` <span size="smaller" fgcolor="yellow"><b>(!)</b></span>`
+			planet += ` <span size="70%%" fgcolor="yellow"><b>(!)</b></span>`
 		}
 
 		return planet

@@ -15,13 +15,13 @@ type FSDTarget struct {
 }
 */
 
-func FSDTarget(entry Entry) (*Event, error) {
-	sClass := entry["StarClass"].(string)
+func FSDTarget(e Entry) (*Event, error) {
+	sClass := e["StarClass"].(string)
 	s := fmt.Sprintf(`<span fgcolor="#A0A0FF"><i><u>Next jump: %s (<span fgcolor="%s"><b>%s</b></span>), left: %.0f</u></i></span>`,
+		e["Name"],
 		starColor(sClass),
 		sClass,
-		entry["StarClass"].(string),
-		entry["RemainingJumpsInRoute"].(float64))
+		e["RemainingJumpsInRoute"].(float64))
 
 	return &Event{Type: FSD_TARGET, Text: s}, nil
 }
