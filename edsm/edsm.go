@@ -38,7 +38,7 @@ func (e *EDSM) Send(evType string, text string) {
 
 func (e *EDSM) sendData() {
 	select {
-	case text := <-e.cc:
+	case text := <-e.ch:
 		log.Debug("EDSM: %s\n", text)
 	}
 }
