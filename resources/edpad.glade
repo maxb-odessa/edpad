@@ -88,15 +88,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="1">
+                  <object class="GtkToggleButton" id="1">
                     <property name="label" translatable="yes">&#13;[1]&#13;</property>
                     <property name="name">1</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
+                    <signal name="clicked" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -105,15 +104,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="2">
+                  <object class="GtkToggleButton" id="2">
                     <property name="label" translatable="yes">[2]</property>
                     <property name="name">2</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
+                    <signal name="clicked" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -122,15 +120,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="3">
+                  <object class="GtkToggleButton" id="3">
                     <property name="label" translatable="yes">[3]</property>
                     <property name="name">3</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
+                    <signal name="clicked" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -139,15 +136,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="4">
+                  <object class="GtkToggleButton" id="4">
                     <property name="label" translatable="yes">[4]</property>
                     <property name="name">4</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="hexpand">True</property>
-                    <signal name="pressed" handler="onPress" swapped="no"/>
-                    <signal name="released" handler="onRelease" swapped="no"/>
+                    <signal name="clicked" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -336,12 +332,13 @@
                 <property name="row-homogeneous">True</property>
                 <property name="column-homogeneous">True</property>
                 <child>
-                  <object class="GtkButton" id="l">
+                  <object class="GtkToggleButton" id="l">
                     <property name="label" translatable="yes">Lights</property>
                     <property name="name">l</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="clicked" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
@@ -373,13 +370,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="n">
+                  <object class="GtkToggleButton" id="n">
                     <property name="label" translatable="yes">Night
 vision</property>
                     <property name="name">n</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="released" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>

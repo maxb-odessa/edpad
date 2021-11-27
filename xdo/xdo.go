@@ -4,7 +4,10 @@ package xdo
 // #include <xdo.h>
 // #cgo LDFLAGS: -lxdo
 import "C"
-import "unsafe"
+import (
+	"edpad/log"
+	"unsafe"
+)
 
 type Xdo struct {
 	xdo *C.xdo_t
@@ -48,9 +51,11 @@ func (x *Xdo) GetWindowName() string {
 }
 
 func (x *Xdo) KeyDown(key string, udelay int) {
+	log.Debug("XDO: '%s' pressed\n", key)
 	C.xdo_send_keysequence_window_down(x.xdo, x.win, C.CString(key), C.useconds_t(udelay))
 }
 
 func (x *Xdo) KeyUp(key string, udelay int) {
+	log.Debug("XDO: '%s' released\n", key)
 	C.xdo_send_keysequence_window_up(x.xdo, x.win, C.CString(key), C.useconds_t(udelay))
 }

@@ -16,14 +16,31 @@ button {
     border-width: 2px 2px 2px 2px;
     border-color: #ffaa00;
     color: #ffaa00;
-    font-size: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0 0px 0 0px; 
+    
 }
 
-button:hover:active {
-    font-size: 20px;
+button:active {
     color: #000000;
     background: #ffaa00;
 }
+
+
+/* general toggle buttons */
+button#n,
+button#l {
+    border-color: #ffaa00;
+    color: #ffaa00;
+}
+
+button#n:checked,
+button#l:checked {
+    background: #ffaa00;
+    color: black;
+}
+
 
 
 /* ESC button */
@@ -32,7 +49,7 @@ button#Escape {
     color: red;
 }
 
-button#Escape:hover:active {
+button#Escape:active {
     background:red;
     color: black;
 }
@@ -47,10 +64,10 @@ button#4 {
     color: yellow;
 }
 
-button#1:hover:active,
-button#2:hover:active,
-button#3:hover:active,
-button#4:hover:active {
+button#1:checked,
+button#2:checked,
+button#3:checked,
+button#4:checked {
     background: yellow;
     color: black;
 }
@@ -63,8 +80,8 @@ button#q {
     color: cyan;
 }
 
-button#e:hover:active,
-button#q:hover:active {
+button#e:active,
+button#q:active {
     background: cyan;
     color: black;
 }
@@ -81,11 +98,11 @@ button#space {
     color: white;
 }
 
-button#w:hover:active,
-button#s:hover:active,
-button#d:hover:active,
-button#a:hover:active,
-button#space:hover:active {
+button#w:active,
+button#s:active,
+button#d:active,
+button#a:active,
+button#space:active {
     background: white;
     color: black;
 }

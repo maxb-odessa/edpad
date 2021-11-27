@@ -62,21 +62,27 @@ func Start(eventCh chan *event.Event) error {
 
 		onButtonDownFunc := func(s interface{}) {
 			if name, err := s.(*gtk.Button).GetName(); err == nil {
-				log.Debug("button down: %s\n", name)
-				remoteDisplay.KeyDown(name, 1000)
+				remoteDisplay.KeyDown(name, 500)
 			}
 		}
 
 		onButtonUpFunc := func(s interface{}) {
 			if name, err := s.(*gtk.Button).GetName(); err == nil {
-				log.Debug("button up: %s\n", name)
-				remoteDisplay.KeyUp(name, 1000)
+				remoteDisplay.KeyUp(name, 500)
+			}
+		}
+
+		onButtonToggleFunc := func(s interface{}) {
+			if name, err := s.(*gtk.ToggleButton).GetName(); err == nil {
+				remoteDisplay.KeyDown(name, 100)
+				remoteDisplay.KeyUp(name, 100)
 			}
 		}
 
 		signals := map[string]interface{}{
 			"onPress":   onButtonDownFunc,
 			"onRelease": onButtonUpFunc,
+			"onToggle":  onButtonToggleFunc,
 		}
 
 		builder.ConnectSignals(signals)
