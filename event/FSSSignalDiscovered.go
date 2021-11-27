@@ -31,10 +31,10 @@ func FSSSignalDiscovered(e Entry) (*Event, error) {
 
 	isStation := ""
 	if isSt, ok := e["IsStation"].(bool); ok && isSt {
-		isStation = " (station)"
+		isStation = ` <span fgcolor="white">(station)</span>`
 	}
 
-	sig := fmt.Sprintf(`Signal: <span fgcolor="#FFA050">%s</span>%s`, sigName, isStation)
+	sig := fmt.Sprintf(`Signal: <span size="small" fgcolor="#FFA050">%s%s</span>`, sigName, isStation)
 
 	return &Event{Type: FSS_SIGNALS, Text: sig}, nil
 }

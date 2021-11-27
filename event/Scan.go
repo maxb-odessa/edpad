@@ -140,7 +140,6 @@ func scanStar(e Entry) (Type, string) {
 
 	var isMain Type
 	var prefix string
-	var discovered string
 
 	if isMainStar(e) {
 		isMain = MAIN_STAR
@@ -150,8 +149,9 @@ func scanStar(e Entry) (Type, string) {
 		prefix = "   *"
 	}
 
+	discovered := ""
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
-		discovered = ` <span size="small" fgcolor="yellow"><b>(!)</b></span>`
+		discovered = ` <span fgcolor="yellow">(!)</span>`
 	}
 
 	sType := e["StarType"].(string)
@@ -161,21 +161,21 @@ func scanStar(e Entry) (Type, string) {
 
 	starType := `<span size="larger" fgcolor="` + fgColor + `"><b>` + sType + sClass + `</b></span>`
 
-	var rings string
-	nrs, ror, yes := getWideRing(e)
-	if yes {
-		rings = fmt.Sprintf(` (nR:%d lsR:%.2f)`, nrs, ror/LIGHT_SECOND)
+	ringed := ""
+	if _, ok := e["Rings"].([]interface{}); ok {
+		ringed = ` +R`
 	}
-	star := fmt.Sprintf(`%s: %s, <span size="small"><i>sM:%.2f sR:%.2f tK:%.0f%s%s</i></span>`,
+
+	star := fmt.Sprintf(`%s: %s, <span size="small"><i>sM:%.2f sR:%.2f tK:%.0fk%s%s</i></span>`,
 		prefix,
 		starType,
 		e["StellarMass"].(float64),
 		e["Radius"].(float64)/SOLAR_RADIUS,
-		e["SurfaceTemperature"].(float64),
+		e["SurfaceTemperature"].(float64)/1000,
 		discovered,
-		rings)
+		ringed)
 
-	log.Debug("Star: %s\n", star)
+	log.Debug("STAR: %s\n", star)
 
 	return isMain, star
 }
@@ -197,40 +197,50 @@ func scanPlanet(e Entry) (Type, string) {
 
 func rarePlanet(e Entry) string {
 
-	pColor := "#808080"
-	pClass := ""
+	pColor := "#A0A0A0"
+	pClass := e["PlanetClass"].(string)
+	terraFormable := ""
 
-	switch e["PlanetClass"].(string) {
+	switch pClass {
 	case "Earthlike body":
 		pColor = "#60FF60"
-		pClass = `EarthLike`
 	case "Water world":
-		pClass = `Water`
 		pColor = "#6060FF"
 	case "Ammonia world":
-		pClass = `Ammonia`
 		pColor = "#FF6060"
 	default:
-		return "" // not interested in other planets
+		if tf, ok := e["TerraformState"].(string); ok && tf != "" {
+			terraFormable = ` +TF`
+			if pClass == "High metal content body" {
+				pClass = "HMC"
+			}
+		} else {
+			return "" // not interested in other planets
+		}
+	}
+
+	ringed := ""
+	if _, ok := e["Rings"]; ok {
+		ringed = ` +R`
+	}
+
+	discovered := ""
+	if e["WasDiscovered"].(bool) {
+		discovered = ` <span fgcolor="yellow">(!)</span>`
 	}
 
 	pMass := e["MassEM"].(float64)
 	pRad := e["Radius"].(float64) / EARTH_RADIUS
 
-	planet := fmt.Sprintf(`Body: id:%.0f, <span fgcolor="%s">%s</span>, <span size="small"><i>eM:%.2f, eR:%.2f</i></span>`,
+	planet := fmt.Sprintf(`Body: id:%.0f, <span fgcolor="%s">%s</span>, <span size="small"><i>eM:%.2f, eR:%.2f<b>%s%s%s</b></i></span>`,
 		e["BodyID"].(float64),
 		pColor,
 		pClass,
 		pMass,
-		pRad)
-
-	if _, ok := e["Rings"]; ok {
-		planet += ` <span size="small" fgcolor="` + pColor + `"><b>(ringed)</b></span>`
-	}
-
-	if e["WasDiscovered"].(bool) {
-		planet += ` <span size="small" fgcolor="yellow"><b>(!)</b></span>`
-	}
+		pRad,
+		discovered,
+		ringed,
+		terraFormable)
 
 	return planet
 }
