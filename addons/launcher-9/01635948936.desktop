@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=EdPad
+Comment=EdPad
+Exec=/home/user/.local/bin/edpad.sh
+Icon=org.xfce.ScreenSaver
+Path=
+Terminal=false
+StartupNotify=false

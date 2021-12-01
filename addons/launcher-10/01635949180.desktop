@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=x52mfd
+Comment=x52mfd
+Exec=/home/user/.local/bin/x52mfd.sh
+Icon=applications-games
+Path=
+Terminal=false
+StartupNotify=false
