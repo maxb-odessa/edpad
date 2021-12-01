@@ -1,13 +1,13 @@
 package main
 
 import (
-	"edpad/cfg"
-	"edpad/display"
-	"edpad/event"
-	"edpad/file"
-	"edpad/log"
-	"edpad/parser"
-	"edpad/socket"
+	"edpad/internal/cfg"
+	"edpad/internal/display"
+	"edpad/internal/event"
+	"edpad/internal/file"
+	"edpad/internal/parser"
+	"edpad/internal/socket"
+	"edpad/pkg/log"
 )
 
 func main() {

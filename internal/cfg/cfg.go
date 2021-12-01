@@ -1,7 +1,7 @@
 package cfg
 
 import (
-	"edpad/log"
+	"edpad/pkg/log"
 	"os"
 
 	o "github.com/pborman/getopt/v2"

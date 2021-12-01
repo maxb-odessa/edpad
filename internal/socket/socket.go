@@ -6,7 +6,7 @@ import (
 	"net"
 	"strings"
 
-	"edpad/cfg"
+	"edpad/internal/cfg"
 )
 
 func Start(parserCh chan string) error {

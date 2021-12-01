@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"edpad/event"
-	"edpad/log"
+	"edpad/internal/event"
+	"edpad/pkg/log"
 )
 
 func parseJoystick(entry event.Entry) *event.Event {

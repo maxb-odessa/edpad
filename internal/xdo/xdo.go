@@ -5,7 +5,7 @@ package xdo
 // #cgo LDFLAGS: -lxdo
 import "C"
 import (
-	"edpad/log"
+	"edpad/pkg/log"
 	"unsafe"
 )
 

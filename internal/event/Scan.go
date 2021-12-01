@@ -1,7 +1,7 @@
 package event
 
 import (
-	"edpad/log"
+	"edpad/pkg/log"
 	"fmt"
 	"strings"
 )

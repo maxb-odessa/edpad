@@ -1,6 +1,6 @@
 package edsm
 
-import "edpad/log"
+import "edpad/pkg/log"
 
 type EDSM struct {
 	cmdrName string

@@ -3,9 +3,9 @@ package parser
 import (
 	"encoding/json"
 
-	"edpad/edsm"
-	"edpad/event"
-	"edpad/log"
+	"edpad/internal/edsm"
+	"edpad/internal/event"
+	"edpad/pkg/log"
 )
 
 func Start(parserCh chan string, eventCh chan *event.Event) error {

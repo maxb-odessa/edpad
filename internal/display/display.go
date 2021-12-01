@@ -8,10 +8,10 @@ import (
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 
-	"edpad/cfg"
-	"edpad/event"
-	"edpad/log"
-	"edpad/xdo"
+	"edpad/internal/cfg"
+	"edpad/internal/event"
+	"edpad/internal/xdo"
+	"edpad/pkg/log"
 )
 
 type Data struct {

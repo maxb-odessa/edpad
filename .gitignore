@@ -1,21 +1,5 @@
-Makefile
-aclocal.m4
-autom4te.cache/
-compile
-config.log
-config.status
-configure
-depcomp
-install-sh
-missing
-.deps/
-edpad
-config.h
-config.h.in
-stamp-h1
+edpad/
 *~
 *.o
 *.swp
 
-!Makefile.in
-!edpad.css.in
