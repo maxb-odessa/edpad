@@ -8,6 +8,9 @@ window {
     background: alpha (@base_color, 0.0);
 }
 
+image {
+    -gtk-icon-transform: scale(2.5);
+}
 
 /* general buttons */
 button {
@@ -17,7 +20,7 @@ button {
     border-color: #ffaa00;
     color: #ffaa00;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
     padding: 0 0px 0 0px; 
     
 }
@@ -47,11 +50,13 @@ button#l:checked {
 button#Escape {
     border-color: red;
     color: red;
+    font-size: 20px;
 }
 
 button#Escape:active {
     background:red;
     color: black;
+    font-size: 20px;
 }
 
 
@@ -62,28 +67,32 @@ button#3,
 button#4 {
     border-color: yellow;
     color: yellow;
+    font-size: 24px;
 }
 
-button#1:checked,
-button#2:checked,
-button#3:checked,
-button#4:checked {
+button#1:active,
+button#2:active,
+button#3:active,
+button#4:active {
     background: yellow;
     color: black;
+    font-size: 24px;
 }
 
 
 /* TABS navigation buttons */
 button#e,
 button#q {
-    border-color: cyan;
-    color: cyan;
+    border-color: gray;
+    color: gray;
+    font-size: 0;
 }
 
 button#e:active,
 button#q:active {
-    background: cyan;
-    color: black;
+    background: gray;
+    color: gray;
+    font-size: 0;
 }
 
 
@@ -94,8 +103,9 @@ button#s,
 button#d,
 button#a,
 button#space {
-    border-color: white;
-    color: white;
+    border-color: cyan;
+    color: cyan;
+    font-size: 0;
 }
 
 button#w:active,
@@ -103,8 +113,9 @@ button#s:active,
 button#d:active,
 button#a:active,
 button#space:active {
-    background: white;
+    background: cyan;
     color: black;
+    font-size: 0;
 }
 
 

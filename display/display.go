@@ -74,8 +74,8 @@ func Start(eventCh chan *event.Event) error {
 
 		onButtonToggleFunc := func(s interface{}) {
 			if name, err := s.(*gtk.ToggleButton).GetName(); err == nil {
-				remoteDisplay.KeyDown(name, 100)
-				remoteDisplay.KeyUp(name, 100)
+				remoteDisplay.KeyDown(name, 500)
+				remoteDisplay.KeyUp(name, 500)
 			}
 		}
 
