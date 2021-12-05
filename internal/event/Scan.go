@@ -123,7 +123,7 @@ const (
 	SOLAR_RADIUS     = 696340000.0
 	EARTH_RADIUS     = 6371.0 * 1000.0
 	LIGHT_SECOND     = 299792.0 * 1000.
-	MIN_RING_OUT_RAD = 10.0 * LIGHT_SECOND
+	MIN_RING_OUT_RAD = 20.0 * LIGHT_SECOND
 )
 
 func isMainStar(e Entry) bool {
@@ -151,7 +151,7 @@ func scanStar(e Entry) (Type, string) {
 
 	discovered := ""
 	if isMain == MAIN_STAR && e["WasDiscovered"].(bool) {
-		discovered = ` <span fgcolor="yellow">(!)</span>`
+		discovered = ` <span fgcolor="yellow">+D</span>`
 	}
 
 	sType := e["StarType"].(string)
@@ -197,17 +197,17 @@ func scanPlanet(e Entry) (Type, string) {
 
 func rarePlanet(e Entry) string {
 
-	pColor := "#A0A0A0"
+	pColor := "#C0C0C0"
 	pClass := e["PlanetClass"].(string)
 	terraFormable := ""
 
 	switch pClass {
 	case "Earthlike body":
-		pColor = "#60FF60"
+		pColor = "#70FF70"
 	case "Water world":
-		pColor = "#6060FF"
+		pColor = "#7070FF"
 	case "Ammonia world":
-		pColor = "#FF6060"
+		pColor = "#FF7070"
 	default:
 		if tf, ok := e["TerraformState"].(string); ok && tf != "" {
 			terraFormable = ` +TF`
@@ -226,7 +226,7 @@ func rarePlanet(e Entry) string {
 
 	discovered := ""
 	if e["WasDiscovered"].(bool) {
-		discovered = ` <span fgcolor="yellow">(!)</span>`
+		discovered = ` <span fgcolor="yellow">+D</span>`
 	}
 
 	pMass := e["MassEM"].(float64)
@@ -285,7 +285,7 @@ func wideRing(e Entry) string {
 			or/LIGHT_SECOND)
 
 		if e["WasDiscovered"].(bool) {
-			planet += ` <span size="small" fgcolor="yellow"><b>(!)</b></span>`
+			planet += ` <span size="small" fgcolor="yellow"><b>+D</b></span>`
 		}
 
 		return planet

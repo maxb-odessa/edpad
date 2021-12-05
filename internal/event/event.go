@@ -40,27 +40,27 @@ func starColor(class string) (fgColor string) {
 
 	switch c {
 	case "O":
-		fgColor = `#EEEEEE`
+		fgColor = `#FFFFFF`
 	case "B":
-		fgColor = `#EEEE80`
+		fgColor = `#FFFF80`
 	case "A":
-		fgColor = `#EEEEAA`
+		fgColor = `#FFFFAA`
 	case "F":
-		fgColor = `#EEEECC`
+		fgColor = `#FFFFCC`
 	case "G":
-		fgColor = `#EEEE20`
+		fgColor = `#FFFF20`
 	case "K":
-		fgColor = `#EEAA20`
+		fgColor = `#FFAA20`
 	case "M":
-		fgColor = `#EE8080`
+		fgColor = `#FF5050`
 	case "N":
-		fgColor = `#2020EE`
+		fgColor = `#5050FF`
 	case "D":
 		fgColor = `#FFFFFF`
 	case "T", "Y", "L":
-		fgColor = `#AA3030`
+		fgColor = `#FF3030`
 	case "H":
-		fgColor = `#505050`
+		fgColor = `#707070`
 	case "W":
 		fgColor = `#FFFFFF`
 	default:
