@@ -415,8 +415,10 @@ vision</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">b8</property>
+                  <object class="GtkButton" id="j">
+                    <property name="label" translatable="yes">Drop
+out</property>
+                    <property name="name">j</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
