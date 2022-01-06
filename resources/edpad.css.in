@@ -32,12 +32,16 @@ button:active {
 
 
 /* general toggle buttons */
+button#o,
+button#u,
 button#n,
 button#l {
     border-color: #ffaa00;
     color: #ffaa00;
 }
 
+button#o:checked,
+button#u:checked,
 button#n:checked,
 button#l:checked {
     background: #ffaa00;

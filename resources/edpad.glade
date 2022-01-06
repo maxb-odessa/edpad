@@ -359,6 +359,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="released" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -372,7 +373,9 @@ Next&gt;&gt;</property>
                     <property name="name">p</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+		    <property name="receives-default">True</property>
+		    <signal name="pressed" handler="onPress" swapped="no"/>
+		    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left-attach">2</property>
@@ -387,6 +390,7 @@ cockpit</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="released" handler="onToggle" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left-attach">3</property>
@@ -429,7 +433,9 @@ out</property>
                     <property name="name">i</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+		    <property name="receives-default">True</property>
+		    <signal name="pressed" handler="onPress" swapped="no"/>
+		    <signal name="released" handler="onRelease" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
