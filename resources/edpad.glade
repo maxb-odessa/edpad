@@ -384,8 +384,8 @@ Next&gt;&gt;</property>
                 </child>
                 <child>
                   <object class="GtkToggleButton" id="u">
-                    <property name="label" translatable="yes">Camera
-cockpit</property>
+                    <property name="label" translatable="yes">Toggle
+Cockpit</property>
                     <property name="name">u</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
