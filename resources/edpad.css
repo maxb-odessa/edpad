@@ -1,0 +1,136 @@
+window {
+    background-image: url('/home/maxb/.local/share/edpad/edpad.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+* {
+    background: alpha (@base_color, 0.0);
+}
+
+image {
+    -gtk-icon-transform: scale(2.5);
+}
+
+/* general buttons */
+button {
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #ffaa00;
+    color: #ffaa00;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0 0px 0 0px; 
+    
+}
+
+button:active {
+    color: #000000;
+    background: #ffaa00;
+}
+
+
+/* general toggle buttons */
+button#n,
+button#l {
+    border-color: #ffaa00;
+    color: #ffaa00;
+}
+
+button#n:checked,
+button#l:checked {
+    background: #ffaa00;
+    color: black;
+}
+
+
+
+/* ESC button */
+button#Escape {
+    border-color: red;
+    color: red;
+    font-size: 0px;
+}
+
+button#Escape:active {
+    background:red;
+    color: black;
+    font-size: 0px;
+}
+
+
+/* TABS buttons */
+button#1,
+button#2,
+button#3,
+button#4 {
+    border-color: yellow;
+    color: yellow;
+    font-size: 24px;
+}
+
+button#1:active,
+button#2:active,
+button#3:active,
+button#4:active {
+    background: yellow;
+    color: black;
+    font-size: 24px;
+}
+
+
+/* TABS navigation buttons */
+button#e,
+button#q {
+    border-color: gray;
+    color: gray;
+    font-size: 0;
+}
+
+button#e:active,
+button#q:active {
+    background: gray;
+    color: gray;
+    font-size: 0;
+}
+
+
+
+/* DIRECTION buttons */
+button#w,
+button#s,
+button#d,
+button#a,
+button#space {
+    border-color: cyan;
+    color: cyan;
+    font-size: 0;
+}
+
+button#w:active,
+button#s:active,
+button#d:active,
+button#a:active,
+button#space:active {
+    background: cyan;
+    color: black;
+    font-size: 0;
+}
+
+
+/* VIEWPORT */
+scrolledwindow {
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #ffaa00;
+}
+
+textview {
+    font-size: 27px;
+}
+textview text {
+    color: #FFFFFF;
+}
+
